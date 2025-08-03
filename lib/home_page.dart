@@ -41,17 +41,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.black,
-              Colors.grey[900]!,
-              Colors.black,
-            ],
-          ),
-        ),
+        color: Colors.black,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -446,6 +436,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 () => Navigator.pushNamed(context, '/contacto'),
                 FontAwesomeIcons.envelope,
                 Color(0xFF00FF00),
+              ),
+              _buildContactButton(
+                'WhatsApp',
+                () => _launchURL('https://wa.me/3413363551'),
+                FontAwesomeIcons.whatsapp,
+                Color(0xFF25D366),
               ),
             ],
           ),

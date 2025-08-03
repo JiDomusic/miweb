@@ -46,7 +46,7 @@ class ProyectosPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final isDesktop = screenSize.width > 1024;
-    final crossAxisCount = isDesktop ? 2 : 1;
+    final crossAxisCount = isDesktop ? 3 : 2;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -127,9 +127,9 @@ class ProyectosPage extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
-                    childAspectRatio: isDesktop ? 1.2 : 0.8,
-                    crossAxisSpacing: 20,
-                    mainAxisSpacing: 20,
+                    childAspectRatio: isDesktop ? 1.8 : 1.3,
+                    crossAxisSpacing: 12,
+                    mainAxisSpacing: 12,
                   ),
                   itemCount: proyectos.length,
                   itemBuilder: (context, index) {
@@ -193,7 +193,7 @@ class ProyectosPage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(25),
+              padding: EdgeInsets.all(15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -219,27 +219,27 @@ class ProyectosPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 12),
                   Text(
                     proyecto['titulo'],
                     style: GoogleFonts.orbitron(
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: proyecto['color'],
                     ),
                   ),
-                  SizedBox(height: 15),
+                  SizedBox(height: 10),
                   Text(
                     proyecto['descripcion'],
                     style: GoogleFonts.robotoMono(
-                      fontSize: 14,
+                      fontSize: 12,
                       color: Colors.white70,
-                      height: 1.5,
+                      height: 1.4,
                     ),
-                    maxLines: 4,
+                    maxLines: 3,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 12),
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
