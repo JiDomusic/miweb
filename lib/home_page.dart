@@ -5,6 +5,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:html' as html;
+import 'package:provider/provider.dart';
+import 'language_provider.dart';
+import 'widgets/language_toggle.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -37,12 +40,24 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    final isDesktop = screenSize.width > 1024;
-    final isTablet = screenSize.width > 768 && screenSize.width <= 1024;
-    
-    return Scaffold(
-      body: Container(
+    return Consumer<LanguageProvider>(
+      builder: (context, languageProvider, child) {
+        final screenSize = MediaQuery.of(context).size;
+        final isDesktop = screenSize.width > 1024;
+        final isTablet = screenSize.width > 768 && screenSize.width <= 1024;
+        
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: LanguageToggle(),
+              ),
+            ],
+          ),
+          body: Container(
         color: Colors.black,
         child: SingleChildScrollView(
           child: Column(
@@ -54,7 +69,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ],
           ),
         ),
-      ),
+        ),
+        );
+      },
     );
   }
 
