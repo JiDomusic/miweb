@@ -7,6 +7,8 @@ import '../widgets/contacto_form.dart';
 import 'dart:html' as html;
 
 class ContactoPage extends StatelessWidget {
+  const ContactoPage({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -46,7 +48,7 @@ class ContactoPage extends StatelessWidget {
             children: [
               _buildHeader(isDesktop),
               SizedBox(height: 40),
-              isDesktop 
+              screenSize.width > 768
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -118,7 +120,7 @@ class ContactoPage extends StatelessWidget {
         'title': 'Email',
         'subtitle': 'Contact me directly',
         'color': Color(0xFFFF1493),
-        'action': () => _launchURL('mailto:jido@example.com'),
+        'action': () => _launchURL('mailto:equiz.rec@gmail.com'),
       },
       {
         'icon': FontAwesomeIcons.youtube,
@@ -126,6 +128,13 @@ class ContactoPage extends StatelessWidget {
         'subtitle': 'Jido_only',
         'color': Color(0xFF00FF00),
         'action': () => _launchURL('https://www.youtube.com/@Jido_only'),
+      },
+      {
+        'icon': FontAwesomeIcons.instagram,
+        'title': 'Instagram',
+        'subtitle': '@jido_only',
+        'color': Color(0xFFFF1493),
+        'action': () => _launchURL('https://www.instagram.com/jido_only'),
       },
       {
         'icon': FontAwesomeIcons.globe,
@@ -139,7 +148,7 @@ class ContactoPage extends StatelessWidget {
         'title': 'Kraken Reparaciones',
         'subtitle': 'Business Website',
         'color': Color(0xFF00FF00),
-        'action': () => _launchURL('http://krakenrepaciones.com/'),
+        'action': () => _launchURL('https://krakenreparaciones.com/'),
       },
       {
         'icon': FontAwesomeIcons.video,

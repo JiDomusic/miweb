@@ -7,6 +7,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:html' as html;
 
 class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+  
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -229,7 +231,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       },
       {
         'title': 'Kraken Reparaciones',
-        'url': 'http://krakenrepaciones.com/',
+        'url': 'https://krakenreparaciones.com/',
         'icon': FontAwesomeIcons.tools,
       },
       {
@@ -267,18 +269,32 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 30),
-          Wrap(
-            spacing: 15,
-            runSpacing: 15,
-            alignment: WrapAlignment.center,
-            children: projects.asMap().entries.map((entry) {
-              final index = entry.key;
-              final project = entry.value;
-              final color = index % 2 == 0 ? Color(0xFFFF1493) : Color(0xFF00FF00);
-              
-              return _buildSimpleProjectButton(project, color);
-            }).toList(),
-          ),
+          MediaQuery.of(context).size.width > 768
+            ? Wrap(
+                spacing: 15,
+                runSpacing: 15,
+                alignment: WrapAlignment.center,
+                children: projects.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final project = entry.value;
+                  final color = index % 2 == 0 ? Color(0xFFFF1493) : Color(0xFF00FF00);
+                  
+                  return _buildSimpleProjectButton(project, color);
+                }).toList(),
+              )
+            : Column(
+                children: projects.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final project = entry.value;
+                  final color = index % 2 == 0 ? Color(0xFFFF1493) : Color(0xFF00FF00);
+                  
+                  return Container(
+                    margin: EdgeInsets.only(bottom: 15),
+                    width: double.infinity,
+                    child: _buildSimpleProjectButton(project, color),
+                  );
+                }).toList(),
+              ),
         ],
       ),
     );
@@ -391,26 +407,70 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               color: Color(0xFF00FF00),
             ),
           ),
-          SizedBox(height: 15),
-          ElevatedButton.icon(
-            onPressed: () => _launchURL('https://www.youtube.com/@Jido_only'),
-            icon: FaIcon(FontAwesomeIcons.youtube, color: Colors.red, size: 20),
-            label: Text(
-              'Visit YouTube Channel',
-              style: GoogleFonts.orbitron(fontWeight: FontWeight.bold),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFF00FF00),
-              foregroundColor: Colors.black,
-              padding: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25),
+          SizedBox(height: 20),
+          MediaQuery.of(context).size.width > 768
+            ? Wrap(
+                spacing: 15,
+                runSpacing: 15,
+                alignment: WrapAlignment.center,
+                children: [
+                  _buildArtistButton(
+                    'YouTube Channel',
+                    'https://www.youtube.com/@Jido_only',
+                    FontAwesomeIcons.youtube,
+                    Colors.red,
+                  ),
+                  _buildArtistButton(
+                    'Bandcamp',
+                    'https://jido.bandcamp.com/',
+                    FontAwesomeIcons.bandcamp,
+                    Color(0xFF629aa0),
+                  ),
+                  _buildArtistButton(
+                    'Photography Blog',
+                    'https://mariajimenadominguez.blogspot.com/?m=1',
+                    FontAwesomeIcons.camera,
+                    Color(0xFFFF1493),
+                  ),
+                  _buildArtistButton(
+                    'Documentary',
+                    'https://vimeo.com/76730484',
+                    FontAwesomeIcons.vimeo,
+                    Color(0xFF1ab7ea),
+                  ),
+                ],
+              )
+            : Column(
+                children: [
+                  _buildArtistButton(
+                    'YouTube Channel',
+                    'https://www.youtube.com/@Jido_only',
+                    FontAwesomeIcons.youtube,
+                    Colors.red,
+                  ),
+                  SizedBox(height: 12),
+                  _buildArtistButton(
+                    'Bandcamp',
+                    'https://jido.bandcamp.com/',
+                    FontAwesomeIcons.bandcamp,
+                    Color(0xFF629aa0),
+                  ),
+                  SizedBox(height: 12),
+                  _buildArtistButton(
+                    'Photography Blog',
+                    'https://mariajimenadominguez.blogspot.com/?m=1',
+                    FontAwesomeIcons.camera,
+                    Color(0xFFFF1493),
+                  ),
+                  SizedBox(height: 12),
+                  _buildArtistButton(
+                    'Documentary',
+                    'https://vimeo.com/76730484',
+                    FontAwesomeIcons.vimeo,
+                    Color(0xFF1ab7ea),
+                  ),
+                ],
               ),
-            ),
-          ).animate().scale(
-            duration: Duration(milliseconds: 800),
-            delay: Duration(milliseconds: 300),
-          ),
         ],
       ),
     );
@@ -422,29 +482,54 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       padding: EdgeInsets.all(30),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildContactButton(
-                'More Projects',
-                () => Navigator.pushNamed(context, '/proyectos'),
-                FontAwesomeIcons.briefcase,
-                Color(0xFFFF1493),
+          MediaQuery.of(context).size.width > 768
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _buildContactButton(
+                    'More Projects',
+                    () => Navigator.pushNamed(context, '/proyectos'),
+                    FontAwesomeIcons.briefcase,
+                    Color(0xFFFF1493),
+                  ),
+                  _buildContactButton(
+                    'Get In Touch',
+                    () => Navigator.pushNamed(context, '/contacto'),
+                    FontAwesomeIcons.envelope,
+                    Color(0xFF00FF00),
+                  ),
+                  _buildContactButton(
+                    'WhatsApp',
+                    () => _launchURL('https://wa.me/3413363551'),
+                    FontAwesomeIcons.whatsapp,
+                    Color(0xFF25D366),
+                  ),
+                ],
+              )
+            : Column(
+                children: [
+                  _buildContactButton(
+                    'More Projects',
+                    () => Navigator.pushNamed(context, '/proyectos'),
+                    FontAwesomeIcons.briefcase,
+                    Color(0xFFFF1493),
+                  ),
+                  SizedBox(height: 15),
+                  _buildContactButton(
+                    'Get In Touch',
+                    () => Navigator.pushNamed(context, '/contacto'),
+                    FontAwesomeIcons.envelope,
+                    Color(0xFF00FF00),
+                  ),
+                  SizedBox(height: 15),
+                  _buildContactButton(
+                    'WhatsApp',
+                    () => _launchURL('https://wa.me/3413363551'),
+                    FontAwesomeIcons.whatsapp,
+                    Color(0xFF25D366),
+                  ),
+                ],
               ),
-              _buildContactButton(
-                'Get In Touch',
-                () => Navigator.pushNamed(context, '/contacto'),
-                FontAwesomeIcons.envelope,
-                Color(0xFF00FF00),
-              ),
-              _buildContactButton(
-                'WhatsApp',
-                () => _launchURL('https://wa.me/3413363551'),
-                FontAwesomeIcons.whatsapp,
-                Color(0xFF25D366),
-              ),
-            ],
-          ),
           SizedBox(height: 20),
           Text(
             '© 2025 Jido. Crafted with Flutter 💙',
@@ -495,5 +580,37 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         print('Could not launch $url with dart:html: $htmlError');
       }
     }
+  }
+
+  Widget _buildArtistButton(String title, String url, IconData icon, Color color) {
+    final screenSize = MediaQuery.of(context).size;
+    final isMobile = screenSize.width <= 768;
+    
+    return ElevatedButton.icon(
+      onPressed: () => _launchURL(url),
+      icon: FaIcon(icon, color: color, size: 18),
+      label: Text(
+        title,
+        style: GoogleFonts.orbitron(
+          fontWeight: FontWeight.bold,
+          fontSize: isMobile ? 14 : 16,
+        ),
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color(0xFF00FF00),
+        foregroundColor: Colors.black,
+        padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 20 : 25,
+          vertical: 12,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+        ),
+        minimumSize: isMobile ? Size(double.infinity, 50) : null,
+      ),
+    ).animate().scale(
+      duration: Duration(milliseconds: 800),
+      delay: Duration(milliseconds: 300),
+    );
   }
 }

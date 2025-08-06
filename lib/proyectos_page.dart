@@ -7,46 +7,49 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'dart:html' as html;
 
 class ProyectosPage extends StatelessWidget {
-  final List<Map<String, dynamic>> proyectos = [
-    {
-      'titulo': 'Emiliana Arias Portfolio',
-      'descripcion': 'Professional portfolio website featuring modern design, responsive layout, and creative animations. Showcases artistic work with elegant presentation.',
-      'tecnologias': ['Flutter Web', 'Responsive Design', 'UI/UX', 'Animation'],
-      'url': 'https://www.emilianaarias.com/',
-      'categoria': 'Portfolio',
-      'color': Color(0xFFFF1493),
-    },
-    {
-      'titulo': 'Kraken Reparaciones',
-      'descripcion': 'Business website for electronics and appliance repair services. Features service catalog, contact forms, and business information presentation.',
-      'tecnologias': ['Web Development', 'Business Solutions', 'Contact Forms'],
-      'url': 'http://krakenrepaciones.com/',
-      'categoria': 'Business',
-      'color': Color(0xFF00FF00),
-    },
-    {
-      'titulo': 'Punto Rojo Productora',
-      'descripcion': 'Creative production company website showcasing audiovisual services, portfolio gallery, and company information with artistic flair.',
-      'tecnologias': ['Creative Design', 'Web Development', 'Portfolio Gallery'],
-      'url': 'https://www.puntorojoproductora.com.ar/',
-      'categoria': 'Creative',
-      'color': Color(0xFFFF1493),
-    },
-    {
-      'titulo': 'Biblio Walsh',
-      'descripcion': 'Digital library platform providing access to educational resources, book catalog, and academic materials with user-friendly interface.',
-      'tecnologias': ['Digital Platform', 'Education Tech', 'Database Management'],
-      'url': 'https://bibliowalsh.org/',
-      'categoria': 'Education',
-      'color': Color(0xFF00FF00),
-    },
-  ];
+  const ProyectosPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> proyectos = [
+      {
+        'titulo': 'Emiliana Arias Portfolio',
+        'descripcion': 'Professional portfolio website featuring modern design, responsive layout, and creative animations. Showcases artistic work with elegant presentation.',
+        'tecnologias': ['Flutter Web', 'Responsive Design', 'UI/UX', 'Animation'],
+        'url': 'https://www.emilianaarias.com/',
+        'categoria': 'Portfolio',
+        'color': Color(0xFFFF1493),
+      },
+      {
+        'titulo': 'Kraken Reparaciones',
+        'descripcion': 'Business website for electronics and appliance repair services. Features service catalog, contact forms, and business information presentation.',
+        'tecnologias': ['Web Development', 'Business Solutions', 'Contact Forms'],
+        'url': 'https://krakenreparaciones.com/',
+        'categoria': 'Business',
+        'color': Color(0xFF00FF00),
+      },
+      {
+        'titulo': 'Punto Rojo Productora',
+        'descripcion': 'Creative production company website showcasing audiovisual services, portfolio gallery, and company information with artistic flair.',
+        'tecnologias': ['Creative Design', 'Web Development', 'Portfolio Gallery'],
+        'url': 'https://www.puntorojoproductora.com.ar/',
+        'categoria': 'Creative',
+        'color': Color(0xFFFF1493),
+      },
+      {
+        'titulo': 'Biblio Walsh',
+        'descripcion': 'Digital library platform providing access to educational resources, book catalog, and academic materials with user-friendly interface.',
+        'tecnologias': ['Digital Platform', 'Education Tech', 'Database Management'],
+        'url': 'https://bibliowalsh.org/',
+        'categoria': 'Education',
+        'color': Color(0xFF00FF00),
+      },
+    ];
+
     final screenSize = MediaQuery.of(context).size;
     final isDesktop = screenSize.width > 1024;
-    final crossAxisCount = isDesktop ? 3 : 2;
+    final isMobile = screenSize.width <= 768;
+    final crossAxisCount = isDesktop ? 3 : (isMobile ? 1 : 2);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -127,7 +130,7 @@ class ProyectosPage extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: crossAxisCount,
-                    childAspectRatio: isDesktop ? 1.8 : 1.3,
+                    childAspectRatio: isDesktop ? 1.8 : (isMobile ? 1.1 : 1.3),
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                   ),

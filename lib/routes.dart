@@ -5,7 +5,7 @@ import 'home_page.dart';
 
 
 final Map<String, WidgetBuilder> appRoutes = {
-  '/': (context) => HomePage(),
-  '/proyectos': (context) => ProyectosPage(),
-  '/contacto': (context) => ContactoPage(),
+  '/': (context) => const HomePage(),
+  '/proyectos': (context) => const ProyectosPage(),
+  '/contacto': (context) => const ContactoPage(),
 };
