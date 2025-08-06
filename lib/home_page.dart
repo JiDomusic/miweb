@@ -157,31 +157,57 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Widget _buildProfileSelector(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isMobile = screenSize.width <= 768;
+    
     return Container(
       margin: EdgeInsets.symmetric(vertical: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildProfileButton(
-            'DEVELOPER',
-            0,
-            FontAwesomeIcons.code,
-            Color(0xFFFF1493),
+      child: isMobile 
+        ? Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                _buildProfileButton(
+                  'DEVELOPER',
+                  0,
+                  FontAwesomeIcons.code,
+                  Color(0xFFFF1493),
+                ),
+                SizedBox(height: 15),
+                _buildProfileButton(
+                  'ARTIST',
+                  1,
+                  FontAwesomeIcons.music,
+                  Color(0xFF00FF00),
+                ),
+              ],
+            ),
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildProfileButton(
+                'DEVELOPER',
+                0,
+                FontAwesomeIcons.code,
+                Color(0xFFFF1493),
+              ),
+              SizedBox(width: 30),
+              _buildProfileButton(
+                'ARTIST',
+                1,
+                FontAwesomeIcons.music,
+                Color(0xFF00FF00),
+              ),
+            ],
           ),
-          SizedBox(width: 30),
-          _buildProfileButton(
-            'ARTIST',
-            1,
-            FontAwesomeIcons.music,
-            Color(0xFF00FF00),
-          ),
-        ],
-      ),
     );
   }
 
   Widget _buildProfileButton(String title, int index, IconData icon, Color color) {
     final isSelected = _selectedProfile == index;
+    final screenSize = MediaQuery.of(context).size;
+    final isMobile = screenSize.width <= 768;
     
     return GestureDetector(
       onTap: () {
@@ -191,7 +217,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       },
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+        width: isMobile ? double.infinity : null,
+        padding: EdgeInsets.symmetric(
+          horizontal: isMobile ? 20 : 30, 
+          vertical: 15
+        ),
         decoration: BoxDecoration(
           color: isSelected ? color.withOpacity(0.2) : Colors.transparent,
           border: Border.all(
@@ -208,7 +238,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ] : [],
         ),
         child: Row(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisSize: isMobile ? MainAxisSize.max : MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FaIcon(
               icon,
@@ -221,7 +252,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               style: GoogleFonts.orbitron(
                 color: isSelected ? color : Colors.grey,
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: isMobile ? 14 : 16,
               ),
             ),
           ],

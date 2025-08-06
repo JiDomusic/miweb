@@ -30,7 +30,7 @@ class Translations {
       'showcase_description': 'A showcase of my work as an independent developer and tech entrepreneur',
       'view_live': 'View Live',
       'current_projects': 'Current Projects',
-      'in_development': 'In Development',
+      'in_development': 'In Dev',
       
       // Project Descriptions
       'emiliana_arias_desc': 'Professional portfolio website featuring modern design, responsive layout, and creative animations. Showcases artistic work with elegant presentation.',
@@ -120,7 +120,7 @@ class Translations {
       'showcase_description': 'Una muestra de mi trabajo como desarrollador independiente y emprendedor tecnológico',
       'view_live': 'Ver en Vivo',
       'current_projects': 'Proyectos Actuales',
-      'in_development': 'En Desarrollo',
+      'in_development': 'En Dev',
       
       // Project Descriptions
       'emiliana_arias_desc': 'Sitio web de portafolio profesional con diseño moderno, diseño responsivo y animaciones creativas. Muestra trabajo artístico con presentación elegante.',
@@ -211,7 +211,7 @@ class Translations {
       'showcase_description': '展示我作为独立开发者和科技企业家的工作',
       'view_live': '查看现场',
       'current_projects': '当前项目',
-      'in_development': '开发中',
+      'in_development': '开发',
       
       // Project Descriptions
       'emiliana_arias_desc': '专业作品集网站，具有现代设计、响应式布局和创意动画。以优雅的呈现方式展示艺术作品。',

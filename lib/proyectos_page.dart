@@ -282,17 +282,20 @@ class ProyectosPage extends StatelessWidget {
               top: 15,
               right: 15,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                 decoration: BoxDecoration(
                   color: proyecto['color'],
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
-                  Provider.of<LanguageProvider>(context).translate('in_development'),
-                  style: GoogleFonts.robotoMono(
-                    fontSize: 10,
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    Provider.of<LanguageProvider>(context).translate('in_development'),
+                    style: GoogleFonts.robotoMono(
+                      fontSize: 8,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
