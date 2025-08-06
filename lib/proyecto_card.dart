@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ProyectoCard extends StatelessWidget {
   final Map<String, String> proyecto;
 
-  const ProyectoCard({required this.proyecto});
+  const ProyectoCard({super.key, required this.proyecto});
 
   @override
   Widget build(BuildContext context) {

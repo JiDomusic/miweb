@@ -5,6 +5,8 @@ void main() {
 }
 
 class MiWeb extends StatelessWidget {
+  const MiWeb({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,6 +17,8 @@ class MiWeb extends StatelessWidget {
 }
 
 class MiWebHomePage extends StatefulWidget {
+  const MiWebHomePage({super.key});
+
   @override
   State<MiWebHomePage> createState() => _MiWebHomePageState();
 }

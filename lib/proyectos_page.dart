@@ -10,7 +10,7 @@ import 'language_provider.dart';
 import 'widgets/language_toggle.dart';
 
 class ProyectosPage extends StatelessWidget {
-  const ProyectosPage({Key? key}) : super(key: key);
+  const ProyectosPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class ProyectosPage extends StatelessWidget {
             'inDevelopment': true,
           },
           {
-            'titulo': languageProvider.isEnglish ? 'Inclusive Dating App' : 'App de Citas Inclusiva',
+            'titulo': 'CONECTA',
             'descripcion': languageProvider.translate('dating_app_desc'),
             'tecnologias': [
               languageProvider.translate('flutter_web'),
@@ -96,6 +96,7 @@ class ProyectosPage extends StatelessWidget {
             'categoria': languageProvider.translate('dating_app'),
             'color': Color(0xFFFF1493),
             'inDevelopment': true,
+            'image': 'assets/images/conecta.png',
           },
         ];
 
@@ -177,7 +178,7 @@ class ProyectosPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Color(0xFF00FF00).withOpacity(0.2),
+                  color: Color(0xFF00FF00).withValues(alpha: 0.2),
                   borderRadius: BorderRadius.circular(15),
                   border: Border.all(color: Color(0xFF00FF00)),
                 ),
@@ -257,17 +258,18 @@ class ProyectosPage extends StatelessWidget {
   }
 
   Widget _buildCurrentProjectCard(Map<String, dynamic> proyecto, BuildContext context) {
+    final hasImage = proyecto['image'] != null;
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: proyecto['color'].withOpacity(0.5),
+          color: proyecto['color'].withValues(alpha: 0.5),
           width: 2,
         ),
         boxShadow: [
           BoxShadow(
-            color: proyecto['color'].withOpacity(0.2),
+            color: proyecto['color'].withValues(alpha: 0.2),
             blurRadius: 20,
             spreadRadius: 3,
           ),
@@ -300,98 +302,203 @@ class ProyectosPage extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 25), // Space for badge
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: proyecto['color'].withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(
-                        color: proyecto['color'].withOpacity(0.5),
-                      ),
-                    ),
-                    child: Text(
-                      proyecto['categoria'],
-                      style: GoogleFonts.robotoMono(
-                        fontSize: 12,
-                        color: proyecto['color'],
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Text(
-                    proyecto['titulo'],
-                    style: GoogleFonts.orbitron(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: proyecto['color'],
-                    ),
-                  ),
-                  SizedBox(height: 12),
-                  Flexible(
-                    child: Text(
-                      proyecto['descripcion'],
-                      style: GoogleFonts.robotoMono(
-                        fontSize: 12,
-                        color: Colors.white70,
-                        height: 1.3,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  SizedBox(height: 15),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: (proyecto['tecnologias'] as List<String>).map((tech) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            hasImage 
+              ? Column(
+                  children: [
+                    // Image section
+                    Expanded(
+                      flex: 3,
+                      child: Container(
+                        width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.3),
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+                          child: Image.asset(
+                            proyecto['image'],
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: proyecto['color'].withValues(alpha: 0.1),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.image,
+                                        color: proyecto['color'],
+                                        size: 50,
+                                      ),
+                                      Text(
+                                        'CONECTA',
+                                        style: GoogleFonts.orbitron(
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                          color: proyecto['color'],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Content section
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: proyecto['color'].withValues(alpha: 0.2),
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  color: proyecto['color'].withValues(alpha: 0.5),
+                                ),
+                              ),
+                              child: Text(
+                                proyecto['categoria'],
+                                style: GoogleFonts.robotoMono(
+                                  fontSize: 12,
+                                  color: proyecto['color'],
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10),
+                            Text(
+                              proyecto['titulo'],
+                              style: GoogleFonts.orbitron(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: proyecto['color'],
+                              ),
+                            ),
+                            Spacer(),
+                            Center(
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                decoration: BoxDecoration(
+                                  color: proyecto['color'].withValues(alpha: 0.1),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: proyecto['color']),
+                                ),
+                                child: Text(
+                                  Provider.of<LanguageProvider>(context).isEnglish ? 'Coming Soon' : 'Próximamente',
+                                  style: GoogleFonts.orbitron(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: proyecto['color'],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              : Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 25), // Space for badge
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: proyecto['color'].withValues(alpha: 0.2),
+                          borderRadius: BorderRadius.circular(15),
                           border: Border.all(
-                            color: Colors.white.withOpacity(0.2),
+                            color: proyecto['color'].withValues(alpha: 0.5),
                           ),
                         ),
                         child: Text(
-                          tech,
+                          proyecto['categoria'],
                           style: GoogleFonts.robotoMono(
-                            fontSize: 11,
-                            color: Colors.white60,
+                            fontSize: 12,
+                            color: proyecto['color'],
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      );
-                    }).toList(),
-                  ),
-                  Spacer(),
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: proyecto['color'].withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: proyecto['color']),
                       ),
-                      child: Text(
-                        Provider.of<LanguageProvider>(context).isEnglish ? 'Coming Soon' : 'Próximamente',
+                      SizedBox(height: 15),
+                      Text(
+                        proyecto['titulo'],
                         style: GoogleFonts.orbitron(
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          fontSize: 14,
                           color: proyecto['color'],
                         ),
                       ),
-                    ),
+                      SizedBox(height: 12),
+                      Flexible(
+                        child: Text(
+                          proyecto['descripcion'],
+                          style: GoogleFonts.robotoMono(
+                            fontSize: 12,
+                            color: Colors.white70,
+                            height: 1.3,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      SizedBox(height: 15),
+                      Wrap(
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: (proyecto['tecnologias'] as List<String>).map((tech) {
+                          return Container(
+                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: Colors.black.withValues(alpha: 0.3),
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: Colors.white.withValues(alpha: 0.2),
+                              ),
+                            ),
+                            child: Text(
+                              tech,
+                              style: GoogleFonts.robotoMono(
+                                fontSize: 11,
+                                color: Colors.white60,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      Spacer(),
+                      Center(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          decoration: BoxDecoration(
+                            color: proyecto['color'].withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: proyecto['color']),
+                          ),
+                          child: Text(
+                            Provider.of<LanguageProvider>(context).isEnglish ? 'Coming Soon' : 'Próximamente',
+                            style: GoogleFonts.orbitron(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                              color: proyecto['color'],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
           ],
         ),
       ),
@@ -478,12 +585,12 @@ class ProyectosPage extends StatelessWidget {
         color: Colors.grey[900],
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: proyecto['color'].withOpacity(0.3),
+          color: proyecto['color'].withValues(alpha: 0.3),
           width: 2,
         ),
         boxShadow: [
           BoxShadow(
-            color: proyecto['color'].withOpacity(0.1),
+            color: proyecto['color'].withValues(alpha: 0.1),
             blurRadius: 15,
             spreadRadius: 3,
           ),
@@ -503,7 +610,7 @@ class ProyectosPage extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      proyecto['color'].withOpacity(0.1),
+                      proyecto['color'].withValues(alpha: 0.1),
                       Colors.transparent,
                     ],
                   ),
@@ -520,10 +627,10 @@ class ProyectosPage extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: proyecto['color'].withOpacity(0.2),
+                          color: proyecto['color'].withValues(alpha: 0.2),
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
-                            color: proyecto['color'].withOpacity(0.5),
+                            color: proyecto['color'].withValues(alpha: 0.5),
                           ),
                         ),
                         child: Text(
@@ -567,10 +674,10 @@ class ProyectosPage extends StatelessWidget {
                       return Container(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.3),
+                          color: Colors.black.withValues(alpha: 0.3),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.white.withOpacity(0.2),
+                            color: Colors.white.withValues(alpha: 0.2),
                           ),
                         ),
                         child: Text(
@@ -590,10 +697,10 @@ class ProyectosPage extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: proyecto['color'].withOpacity(0.1),
+                          color: proyecto['color'].withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: proyecto['color'].withOpacity(0.3),
+                            color: proyecto['color'].withValues(alpha: 0.3),
                           ),
                         ),
                         child: FaIcon(

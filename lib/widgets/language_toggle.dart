@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../language_provider.dart';
 
 class LanguageToggle extends StatelessWidget {
-  const LanguageToggle({Key? key}) : super(key: key);
+  const LanguageToggle({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ContactoForm extends StatefulWidget {
+  const ContactoForm({super.key});
+
   @override
   _ContactoFormState createState() => _ContactoFormState();
 }

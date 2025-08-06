@@ -9,7 +9,7 @@ import 'language_provider.dart';
 import 'widgets/language_toggle.dart';
 
 class ContactoPage extends StatelessWidget {
-  const ContactoPage({Key? key}) : super(key: key);
+  const ContactoPage({super.key});
   
   @override
   Widget build(BuildContext context) {
@@ -224,7 +224,7 @@ class ContactoPage extends StatelessWidget {
             duration: Duration(milliseconds: 600),
             delay: Duration(milliseconds: 200 + (index * 100)),
           );
-        }).toList(),
+        }),
       ],
     );
   }
