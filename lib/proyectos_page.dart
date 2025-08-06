@@ -230,7 +230,7 @@ class ProyectosPage extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: constraints.maxWidth > 768 ? 2 : 1,
-                  childAspectRatio: 1.5,
+                  childAspectRatio: constraints.maxWidth > 768 ? 1.2 : 1.0,
                   crossAxisSpacing: 15,
                   mainAxisSpacing: 15,
                 ),
