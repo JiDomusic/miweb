@@ -96,7 +96,7 @@ class ProyectosPage extends StatelessWidget {
             'categoria': languageProvider.translate('dating_app'),
             'color': Color(0xFFFF1493),
             'inDevelopment': true,
-            'image': 'assets/images/conecta.png',
+            'image': 'assets/images/conecta.jpg',
           },
         ];
 
