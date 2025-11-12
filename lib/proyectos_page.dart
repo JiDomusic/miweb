@@ -18,6 +18,21 @@ class ProyectosPage extends StatelessWidget {
       builder: (context, languageProvider, child) {
         final List<Map<String, dynamic>> proyectos = [
           {
+            'titulo': 'SODITA - Sistema Gastronómico',
+            'descripcion': languageProvider.isEnglish 
+              ? 'Restaurant reservation management system with modern interface and booking functionality'
+              : 'Sistema de gestión de reservas gastronómicas con interfaz moderna y funcionalidad de reservas',
+            'tecnologias': [
+              languageProvider.translate('web_development'),
+              'Sistema de Reservas',
+              'Gestión Gastronómica',
+              'UI/UX Design',
+            ],
+            'url': 'https://sodita-314e6.web.app/',
+            'categoria': languageProvider.translate('business'),
+            'color': Color(0xFF00FF00),
+          },
+          {
             'titulo': 'Ciudad de Letras',
             'descripcion': languageProvider.isEnglish 
               ? 'Literary platform for writers and readers with interactive content and community features'
@@ -33,18 +48,27 @@ class ProyectosPage extends StatelessWidget {
             'color': Color(0xFFFF1493),
           },
           {
-            'titulo': 'SODITA - Sistema Gastronómico',
-            'descripcion': languageProvider.isEnglish 
-              ? 'Restaurant reservation management system with modern interface and booking functionality'
-              : 'Sistema de gestión de reservas gastronómicas con interfaz moderna y funcionalidad de reservas',
+            'titulo': 'Kraken Reparaciones',
+            'descripcion': languageProvider.translate('kraken_desc'),
             'tecnologias': [
               languageProvider.translate('web_development'),
-              'Sistema de Reservas',
-              'Gestión Gastronómica',
-              'UI/UX Design',
+              languageProvider.translate('business_solutions'),
+              languageProvider.translate('contact_forms'),
             ],
-            'url': 'https://sodita-314e6.web.app/',
+            'url': 'https://krakenreparaciones.com/',
             'categoria': languageProvider.translate('business'),
+            'color': Color(0xFF00FF00),
+          },
+          {
+            'titulo': 'Biblio Walsh',
+            'descripcion': languageProvider.translate('biblio_walsh_desc'),
+            'tecnologias': [
+              languageProvider.translate('digital_platform'),
+              languageProvider.translate('education_tech'),
+              languageProvider.translate('database_management'),
+            ],
+            'url': 'https://bibliowalsh.org/',
+            'categoria': languageProvider.translate('education'),
             'color': Color(0xFF00FF00),
           },
           {
@@ -61,18 +85,6 @@ class ProyectosPage extends StatelessWidget {
             'color': Color(0xFFFF1493),
           },
           {
-            'titulo': 'Kraken Reparaciones',
-            'descripcion': languageProvider.translate('kraken_desc'),
-            'tecnologias': [
-              languageProvider.translate('web_development'),
-              languageProvider.translate('business_solutions'),
-              languageProvider.translate('contact_forms'),
-            ],
-            'url': 'https://krakenreparaciones.com/',
-            'categoria': languageProvider.translate('business'),
-            'color': Color(0xFF00FF00),
-          },
-          {
             'titulo': 'Punto Rojo Productora',
             'descripcion': languageProvider.translate('punto_rojo_desc'),
             'tecnologias': [
@@ -83,18 +95,6 @@ class ProyectosPage extends StatelessWidget {
             'url': 'https://www.puntorojoproductora.com.ar/',
             'categoria': languageProvider.translate('creative'),
             'color': Color(0xFFFF1493),
-          },
-          {
-            'titulo': 'Biblio Walsh',
-            'descripcion': languageProvider.translate('biblio_walsh_desc'),
-            'tecnologias': [
-              languageProvider.translate('digital_platform'),
-              languageProvider.translate('education_tech'),
-              languageProvider.translate('database_management'),
-            ],
-            'url': 'https://bibliowalsh.org/',
-            'categoria': languageProvider.translate('education'),
-            'color': Color(0xFF00FF00),
           },
         ];
 

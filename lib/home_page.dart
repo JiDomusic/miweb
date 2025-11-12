@@ -58,15 +58,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             ],
           ),
           body: Container(
-        color: Colors.black,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _buildHeader(context, isDesktop),
-              _buildProfileSelector(context),
-              _buildProfileContent(context, isDesktop, isTablet),
-              _buildFooter(context),
-            ],
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/background_field.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.6),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildHeader(context, isDesktop),
+                _buildProfileSelector(context),
+                _buildProfileContent(context, isDesktop, isTablet),
+                _buildFooter(context),
+              ],
+            ),
           ),
         ),
         ),
@@ -273,9 +283,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget _buildDeveloperProfile(BuildContext context, bool isDesktop, bool isTablet) {
     final projects = [
       {
-        'title': 'Emiliana Arias Portfolio',
-        'url': 'https://www.emilianaarias.com/',
-        'icon': FontAwesomeIcons.paintBrush,
+        'title': 'SODITA - Sistema Gastronómico',
+        'url': 'https://sodita-314e6.web.app/',
+        'icon': FontAwesomeIcons.utensils,
+      },
+      {
+        'title': 'Ciudad de Letras',
+        'url': 'https://ciudaddeletras-97276.web.app/',
+        'icon': FontAwesomeIcons.feather,
       },
       {
         'title': 'Kraken Reparaciones',
@@ -283,14 +298,19 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         'icon': FontAwesomeIcons.tools,
       },
       {
-        'title': 'Punto Rojo Productora',
-        'url': 'https://www.puntorojoproductora.com.ar/',
-        'icon': FontAwesomeIcons.video,
-      },
-      {
         'title': 'Biblio Walsh',
         'url': 'https://bibliowalsh.org/',
         'icon': FontAwesomeIcons.book,
+      },
+      {
+        'title': 'Emiliana Arias Portfolio',
+        'url': 'https://www.emilianaarias.com/',
+        'icon': FontAwesomeIcons.paintBrush,
+      },
+      {
+        'title': 'Punto Rojo Productora',
+        'url': 'https://www.puntorojoproductora.com.ar/',
+        'icon': FontAwesomeIcons.video,
       },
     ];
 
