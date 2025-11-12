@@ -18,6 +18,36 @@ class ProyectosPage extends StatelessWidget {
       builder: (context, languageProvider, child) {
         final List<Map<String, dynamic>> proyectos = [
           {
+            'titulo': 'Ciudad de Letras',
+            'descripcion': languageProvider.isEnglish 
+              ? 'Literary platform for writers and readers with interactive content and community features'
+              : 'Plataforma literaria para escritores y lectores con contenido interactivo y funciones de comunidad',
+            'tecnologias': [
+              languageProvider.translate('flutter_web'),
+              languageProvider.translate('creative_design'),
+              'Literatura Digital',
+              'Comunidad',
+            ],
+            'url': 'https://ciudaddeletras-97276.web.app/',
+            'categoria': languageProvider.translate('creative'),
+            'color': Color(0xFFFF1493),
+          },
+          {
+            'titulo': 'SODITA - Sistema Gastronómico',
+            'descripcion': languageProvider.isEnglish 
+              ? 'Restaurant reservation management system with modern interface and booking functionality'
+              : 'Sistema de gestión de reservas gastronómicas con interfaz moderna y funcionalidad de reservas',
+            'tecnologias': [
+              languageProvider.translate('web_development'),
+              'Sistema de Reservas',
+              'Gestión Gastronómica',
+              'UI/UX Design',
+            ],
+            'url': 'https://sodita-314e6.web.app/',
+            'categoria': languageProvider.translate('business'),
+            'color': Color(0xFF00FF00),
+          },
+          {
             'titulo': 'Emiliana Arias Portfolio',
             'descripcion': languageProvider.translate('emiliana_arias_desc'),
             'tecnologias': [
