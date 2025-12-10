@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:html' as html;
@@ -11,32 +9,13 @@ import 'widgets/language_toggle.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-  
+
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _fadeAnimation;
-  int _selectedProfile = 0; // 0: Developer, 1: Music Producer
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: Duration(seconds: 2),
-      vsync: this,
-    );
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_controller);
-    _controller.forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+class _HomePageState extends State<HomePage> {
+  int _selectedProfile = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -44,566 +23,311 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       builder: (context, languageProvider, child) {
         final screenSize = MediaQuery.of(context).size;
         final isDesktop = screenSize.width > 1024;
-        final isTablet = screenSize.width > 768 && screenSize.width <= 1024;
-        
+
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
             actions: [
               Padding(
-                padding: EdgeInsets.only(right: 16),
+                padding: const EdgeInsets.only(right: 24),
                 child: LanguageToggle(),
               ),
             ],
           ),
           body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/background_field.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.6),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _buildHeader(context, isDesktop),
-                _buildProfileSelector(context),
-                _buildProfileContent(context, isDesktop, isTablet),
-                _buildFooter(context),
-              ],
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/background_field.jpg'),
+                fit: BoxFit.cover,
+                opacity: 0.03,
+              ),
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 80),
+                  _buildHeader(context, isDesktop),
+                  const SizedBox(height: 60),
+                  _buildProfileSelector(context),
+                  const SizedBox(height: 80),
+                  _buildProfileContent(context, isDesktop),
+                  const SizedBox(height: 100),
+                  _buildFooter(context, isDesktop),
+                  const SizedBox(height: 60),
+                ],
+              ),
             ),
           ),
-        ),
-        ),
         );
       },
     );
   }
 
   Widget _buildHeader(BuildContext context, bool isDesktop) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 40),
-      child: Column(
-        children: [
-          FadeTransition(
-            opacity: _fadeAnimation,
-            child: Container(
-              width: isDesktop ? 120 : 100,
-              height: isDesktop ? 120 : 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  colors: [Color(0xFFFF1493), Color(0xFF00FF00)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0xFFFF1493).withOpacity(0.5),
-                    blurRadius: 20,
-                    spreadRadius: 3,
-                  ),
-                ],
-              ),
-              child: Icon(
-                Icons.person,
-                size: isDesktop ? 60 : 50,
-                color: Colors.black,
-              ),
-            ).animate().scale(
-              duration: Duration(milliseconds: 800),
-              curve: Curves.elasticOut,
-            ),
+    return Column(
+      children: [
+        Text(
+          'JIDO',
+          style: GoogleFonts.inter(
+            fontSize: isDesktop ? 72 : 48,
+            fontWeight: FontWeight.w300,
+            letterSpacing: -2,
+            color: const Color(0xFF1A1A1A),
           ),
-          SizedBox(height: 20),
-          AnimatedTextKit(
-            animatedTexts: [
-              TypewriterAnimatedText(
-                'JIDO',
-                textStyle: GoogleFonts.orbitron(
-                  fontSize: isDesktop ? 48 : 36,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFFF1493),
-                  shadows: [
-                    Shadow(
-                      color: Color(0xFF00FF00),
-                      offset: Offset(2, 2),
-                      blurRadius: 5,
-                    ),
-                  ],
-                ),
-                speed: Duration(milliseconds: 200),
-              ),
-            ],
-            totalRepeatCount: 1,
+        ),
+        const SizedBox(height: 16),
+        Text(
+          'Developer • Producer • Entrepreneur',
+          style: GoogleFonts.inter(
+            fontSize: isDesktop ? 18 : 14,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF666666),
+            letterSpacing: 0.5,
           ),
-          SizedBox(height: 15),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-            decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFF00FF00), width: 2),
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: Text(
-              'Developer • Music Producer • Tech Entrepreneur',
-              style: GoogleFonts.robotoMono(
-                fontSize: isDesktop ? 16 : 12,
-                color: Colors.white,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ).animate().slideX(
-            duration: Duration(milliseconds: 1000),
-            delay: Duration(milliseconds: 1500),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
   Widget _buildProfileSelector(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     final isMobile = screenSize.width <= 768;
-    
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 20),
-      child: isMobile 
-        ? Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                _buildProfileButton(
-                  'DEVELOPER',
-                  0,
-                  FontAwesomeIcons.code,
-                  Color(0xFFFF1493),
-                ),
-                SizedBox(height: 15),
-                _buildProfileButton(
-                  'ARTIST',
-                  1,
-                  FontAwesomeIcons.music,
-                  Color(0xFF00FF00),
-                ),
-              ],
-            ),
-          )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _buildProfileButton(
-                'DEVELOPER',
-                0,
-                FontAwesomeIcons.code,
-                Color(0xFFFF1493),
-              ),
-              SizedBox(width: 30),
-              _buildProfileButton(
-                'ARTIST',
-                1,
-                FontAwesomeIcons.music,
-                Color(0xFF00FF00),
-              ),
-            ],
-          ),
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildProfileTab('Developer', 0, isMobile),
+        const SizedBox(width: 4),
+        _buildProfileTab('Artist', 1, isMobile),
+      ],
     );
   }
 
-  Widget _buildProfileButton(String title, int index, IconData icon, Color color) {
+  Widget _buildProfileTab(String title, int index, bool isMobile) {
     final isSelected = _selectedProfile == index;
-    final screenSize = MediaQuery.of(context).size;
-    final isMobile = screenSize.width <= 768;
-    
+
     return GestureDetector(
       onTap: () {
         setState(() {
           _selectedProfile = index;
         });
       },
-      child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
-        width: isMobile ? double.infinity : null,
+      child: Container(
         padding: EdgeInsets.symmetric(
-          horizontal: isMobile ? 20 : 30, 
-          vertical: 15
+          horizontal: isMobile ? 24 : 32,
+          vertical: isMobile ? 12 : 16,
         ),
         decoration: BoxDecoration(
-          color: isSelected ? color.withOpacity(0.2) : Colors.transparent,
+          color: isSelected ? const Color(0xFF1A1A1A) : Colors.transparent,
+          borderRadius: BorderRadius.circular(100),
           border: Border.all(
-            color: isSelected ? color : Colors.grey,
-            width: 2,
+            color: isSelected ? const Color(0xFF1A1A1A) : const Color(0xFFDDDDDD),
+            width: 1,
           ),
-          borderRadius: BorderRadius.circular(25),
-          boxShadow: isSelected ? [
-            BoxShadow(
-              color: color.withOpacity(0.5),
-              blurRadius: 15,
-              spreadRadius: 2,
-            ),
-          ] : [],
         ),
-        child: Row(
-          mainAxisSize: isMobile ? MainAxisSize.max : MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FaIcon(
-              icon,
-              color: isSelected ? color : Colors.grey,
-              size: 20,
-            ),
-            SizedBox(width: 10),
-            Text(
-              title,
-              style: GoogleFonts.orbitron(
-                color: isSelected ? color : Colors.grey,
-                fontWeight: FontWeight.bold,
-                fontSize: isMobile ? 14 : 16,
-              ),
-            ),
-          ],
+        child: Text(
+          title,
+          style: GoogleFonts.inter(
+            color: isSelected ? Colors.white : const Color(0xFF666666),
+            fontWeight: FontWeight.w500,
+            fontSize: isMobile ? 14 : 16,
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildProfileContent(BuildContext context, bool isDesktop, bool isTablet) {
+  Widget _buildProfileContent(BuildContext context, bool isDesktop) {
     return AnimatedSwitcher(
-      duration: Duration(milliseconds: 500),
-      child: _selectedProfile == 0 
-        ? _buildDeveloperProfile(context, isDesktop, isTablet)
-        : _buildArtistProfile(context, isDesktop, isTablet),
+      duration: const Duration(milliseconds: 300),
+      child: _selectedProfile == 0
+        ? _buildDeveloperProfile(context, isDesktop)
+        : _buildArtistProfile(context, isDesktop),
     );
   }
 
-  Widget _buildDeveloperProfile(BuildContext context, bool isDesktop, bool isTablet) {
+  Widget _buildDeveloperProfile(BuildContext context, bool isDesktop) {
     final projects = [
       {
-        'title': 'SODITA - Sistema Gastronómico',
-        'url': 'https://sodita-314e6.web.app/',
-        'icon': FontAwesomeIcons.utensils,
+        'title': 'SODITA',
+        'subtitle': 'Restaurant Management System',
+        'url': 'https://reservasodita.web.app/',
       },
       {
         'title': 'Ciudad de Letras',
+        'subtitle': 'Literary Platform',
         'url': 'https://ciudaddeletras-97276.web.app/',
-        'icon': FontAwesomeIcons.feather,
       },
       {
         'title': 'Kraken Reparaciones',
+        'subtitle': 'Repair Service',
         'url': 'https://krakenreparaciones.com/',
-        'icon': FontAwesomeIcons.tools,
       },
       {
         'title': 'Biblio Walsh',
+        'subtitle': 'Library System',
         'url': 'https://bibliowalsh.org/',
-        'icon': FontAwesomeIcons.book,
       },
       {
-        'title': 'Emiliana Arias Portfolio',
+        'title': 'Emiliana Arias',
+        'subtitle': 'Artist Portfolio',
         'url': 'https://www.emilianaarias.com/',
-        'icon': FontAwesomeIcons.paintBrush,
       },
       {
-        'title': 'Punto Rojo Productora',
+        'title': 'Punto Rojo',
+        'subtitle': 'Production Company',
         'url': 'https://www.puntorojoproductora.com.ar/',
-        'icon': FontAwesomeIcons.video,
       },
     ];
 
     return Container(
-      key: ValueKey('developer'),
-      padding: EdgeInsets.all(20),
+      key: const ValueKey('developer'),
+      constraints: BoxConstraints(maxWidth: isDesktop ? 1000 : 600),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'SOFTWARE DEVELOPER',
-            style: GoogleFonts.orbitron(
-              fontSize: isDesktop ? 28 : 24,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFFFF1493),
+            'Selected Projects',
+            style: GoogleFonts.inter(
+              fontSize: isDesktop ? 32 : 24,
+              fontWeight: FontWeight.w300,
+              color: const Color(0xFF1A1A1A),
             ),
-          ).animate().slideY(duration: Duration(milliseconds: 600)),
-          SizedBox(height: 15),
-          Text(
-            'Independent Tech Entrepreneur & Full-Stack Developer',
-            style: GoogleFonts.robotoMono(
-              fontSize: isDesktop ? 16 : 14,
-              color: Colors.white70,
-            ),
-            textAlign: TextAlign.center,
           ),
-          SizedBox(height: 30),
-          MediaQuery.of(context).size.width > 768
-            ? Wrap(
-                spacing: 15,
-                runSpacing: 15,
-                alignment: WrapAlignment.center,
-                children: projects.asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final project = entry.value;
-                  final color = index % 2 == 0 ? Color(0xFFFF1493) : Color(0xFF00FF00);
-                  
-                  return _buildSimpleProjectButton(project, color);
-                }).toList(),
-              )
-            : Column(
-                children: projects.asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final project = entry.value;
-                  final color = index % 2 == 0 ? Color(0xFFFF1493) : Color(0xFF00FF00);
-                  
-                  return Container(
-                    margin: EdgeInsets.only(bottom: 15),
-                    width: double.infinity,
-                    child: _buildSimpleProjectButton(project, color),
-                  );
-                }).toList(),
-              ),
+          const SizedBox(height: 40),
+          ...projects.map((project) => _buildProjectItem(project, isDesktop)),
         ],
       ),
     );
   }
 
-  Widget _buildSimpleProjectButton(Map<String, dynamic> project, Color color) {
-    return GestureDetector(
-      onTap: () => _launchURL(project['url']),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
-          borderRadius: BorderRadius.circular(25),
-          border: Border.all(
-            color: color.withOpacity(0.3),
-            width: 2,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: color.withOpacity(0.2),
-              blurRadius: 10,
-              spreadRadius: 1,
-            ),
-          ],
-        ),
+  Widget _buildProjectItem(Map<String, dynamic> project, bool isDesktop) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 32),
+      child: InkWell(
+        onTap: () => _launchURL(project['url']),
+        hoverColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         child: Row(
-          mainAxisSize: MainAxisSize.min,
           children: [
-            FaIcon(
-              project['icon'] as IconData,
-              color: color,
-              size: 18,
-            ),
-            SizedBox(width: 12),
-            Text(
-              project['title'],
-              style: GoogleFonts.orbitron(
-                color: color,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    project['title'],
+                    style: GoogleFonts.inter(
+                      fontSize: isDesktop ? 20 : 18,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(0xFF1A1A1A),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    project['subtitle'],
+                    style: GoogleFonts.inter(
+                      fontSize: isDesktop ? 14 : 12,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xFF999999),
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(width: 8),
-            FaIcon(
-              FontAwesomeIcons.upRightFromSquare,
-              color: color,
-              size: 14,
+            Icon(
+              Icons.arrow_forward,
+              size: 20,
+              color: const Color(0xFF666666),
             ),
           ],
         ),
       ),
-    ).animate().scale(
-      duration: Duration(milliseconds: 400),
-      delay: Duration(milliseconds: 100),
     );
   }
 
-  Widget _buildArtistProfile(BuildContext context, bool isDesktop, bool isTablet) {
+  Widget _buildArtistProfile(BuildContext context, bool isDesktop) {
+    final links = [
+      {
+        'title': 'YouTube',
+        'subtitle': '@Jido_only',
+        'url': 'https://www.youtube.com/@Jido_only',
+      },
+      {
+        'title': 'Bandcamp',
+        'subtitle': 'Music Releases',
+        'url': 'https://jido.bandcamp.com/',
+      },
+      {
+        'title': 'Photography',
+        'subtitle': 'Visual Blog',
+        'url': 'https://mariajimenadominguez.blogspot.com/?m=1',
+      },
+      {
+        'title': 'Documentary',
+        'subtitle': 'Vimeo',
+        'url': 'https://vimeo.com/76730484',
+      },
+    ];
+
     return Container(
-      key: ValueKey('artist'),
-      padding: EdgeInsets.all(20),
+      key: const ValueKey('artist'),
+      constraints: BoxConstraints(maxWidth: isDesktop ? 1000 : 600),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'MUSIC PRODUCER',
-            style: GoogleFonts.orbitron(
-              fontSize: isDesktop ? 28 : 24,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF00FF00),
-            ),
-          ).animate().slideY(duration: Duration(milliseconds: 600)),
-          SizedBox(height: 15),
-          Text(
-            'Electronic Music Producer & Audio Engineer',
-            style: GoogleFonts.robotoMono(
-              fontSize: isDesktop ? 16 : 14,
-              color: Colors.white70,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 30),
-          Container(
-            width: isDesktop ? 100 : 80,
-            height: isDesktop ? 100 : 80,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                colors: [Color(0xFF00FF00), Color(0xFFFF1493)],
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0xFF00FF00).withOpacity(0.5),
-                  blurRadius: 15,
-                  spreadRadius: 3,
-                ),
-              ],
-            ),
-            child: Icon(
-              FontAwesomeIcons.youtube,
-              size: isDesktop ? 40 : 32,
-              color: Colors.black,
+            'Music & Art',
+            style: GoogleFonts.inter(
+              fontSize: isDesktop ? 32 : 24,
+              fontWeight: FontWeight.w300,
+              color: const Color(0xFF1A1A1A),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 40),
+          ...links.map((link) => _buildProjectItem(link, isDesktop)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFooter(BuildContext context, bool isDesktop) {
+    return Container(
+      constraints: BoxConstraints(maxWidth: isDesktop ? 1000 : 600),
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Divider(
+            color: const Color(0xFFDDDDDD),
+            thickness: 1,
+          ),
+          const SizedBox(height: 32),
           Text(
-            'Jido_only',
-            style: GoogleFonts.orbitron(
+            'Get in touch',
+            style: GoogleFonts.inter(
               fontSize: isDesktop ? 24 : 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF00FF00),
+              fontWeight: FontWeight.w300,
+              color: const Color(0xFF1A1A1A),
             ),
           ),
-          SizedBox(height: 20),
-          MediaQuery.of(context).size.width > 768
-            ? Wrap(
-                spacing: 15,
-                runSpacing: 15,
-                alignment: WrapAlignment.center,
-                children: [
-                  _buildArtistButton(
-                    'YouTube Channel',
-                    'https://www.youtube.com/@Jido_only',
-                    FontAwesomeIcons.youtube,
-                    Colors.red,
-                  ),
-                  _buildArtistButton(
-                    'Bandcamp',
-                    'https://jido.bandcamp.com/',
-                    FontAwesomeIcons.bandcamp,
-                    Color(0xFF629aa0),
-                  ),
-                  _buildArtistButton(
-                    'Photography Blog',
-                    'https://mariajimenadominguez.blogspot.com/?m=1',
-                    FontAwesomeIcons.camera,
-                    Color(0xFFFF1493),
-                  ),
-                  _buildArtistButton(
-                    'Documentary',
-                    'https://vimeo.com/76730484',
-                    FontAwesomeIcons.vimeo,
-                    Color(0xFF1ab7ea),
-                  ),
-                ],
-              )
-            : Column(
-                children: [
-                  _buildArtistButton(
-                    'YouTube Channel',
-                    'https://www.youtube.com/@Jido_only',
-                    FontAwesomeIcons.youtube,
-                    Colors.red,
-                  ),
-                  SizedBox(height: 12),
-                  _buildArtistButton(
-                    'Bandcamp',
-                    'https://jido.bandcamp.com/',
-                    FontAwesomeIcons.bandcamp,
-                    Color(0xFF629aa0),
-                  ),
-                  SizedBox(height: 12),
-                  _buildArtistButton(
-                    'Photography Blog',
-                    'https://mariajimenadominguez.blogspot.com/?m=1',
-                    FontAwesomeIcons.camera,
-                    Color(0xFFFF1493),
-                  ),
-                  SizedBox(height: 12),
-                  _buildArtistButton(
-                    'Documentary',
-                    'https://vimeo.com/76730484',
-                    FontAwesomeIcons.vimeo,
-                    Color(0xFF1ab7ea),
-                  ),
-                ],
-              ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFooter(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 30),
-      padding: EdgeInsets.all(30),
-      child: Column(
-        children: [
-          MediaQuery.of(context).size.width > 768
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildContactButton(
-                    'More Projects',
-                    () => Navigator.pushNamed(context, '/proyectos'),
-                    FontAwesomeIcons.briefcase,
-                    Color(0xFFFF1493),
-                  ),
-                  _buildContactButton(
-                    'Get In Touch',
-                    () => Navigator.pushNamed(context, '/contacto'),
-                    FontAwesomeIcons.envelope,
-                    Color(0xFF00FF00),
-                  ),
-                  _buildContactButton(
-                    'WhatsApp',
-                    () => _launchURL('https://wa.me/3413363551'),
-                    FontAwesomeIcons.whatsapp,
-                    Color(0xFF25D366),
-                  ),
-                ],
-              )
-            : Column(
-                children: [
-                  _buildContactButton(
-                    'More Projects',
-                    () => Navigator.pushNamed(context, '/proyectos'),
-                    FontAwesomeIcons.briefcase,
-                    Color(0xFFFF1493),
-                  ),
-                  SizedBox(height: 15),
-                  _buildContactButton(
-                    'Get In Touch',
-                    () => Navigator.pushNamed(context, '/contacto'),
-                    FontAwesomeIcons.envelope,
-                    Color(0xFF00FF00),
-                  ),
-                  SizedBox(height: 15),
-                  _buildContactButton(
-                    'WhatsApp',
-                    () => _launchURL('https://wa.me/3413363551'),
-                    FontAwesomeIcons.whatsapp,
-                    Color(0xFF25D366),
-                  ),
-                ],
-              ),
-          SizedBox(height: 20),
+          const SizedBox(height: 24),
+          _buildContactLink('More Projects', () => Navigator.pushNamed(context, '/proyectos')),
+          const SizedBox(height: 16),
+          _buildContactLink('Contact', () => Navigator.pushNamed(context, '/contacto')),
+          const SizedBox(height: 16),
+          _buildContactLink('WhatsApp', () => _launchURL('https://wa.me/3413363551')),
+          const SizedBox(height: 48),
           Text(
-            '© 2025 Jido. Crafted with Flutter 💙',
-            style: GoogleFonts.robotoMono(
-              color: Colors.white54,
+            '© 2025 — Built with Flutter',
+            style: GoogleFonts.inter(
               fontSize: 12,
+              color: const Color(0xFF999999),
+              fontWeight: FontWeight.w400,
             ),
           ),
         ],
@@ -611,24 +335,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-
-  Widget _buildContactButton(String title, VoidCallback onPressed, IconData icon, Color color) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: FaIcon(icon, size: 18),
-      label: Text(title),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color.withOpacity(0.2),
-        foregroundColor: color,
-        side: BorderSide(color: color),
-        padding: EdgeInsets.symmetric(horizontal: 25, vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+  Widget _buildContactLink(String title, VoidCallback onPressed) {
+    return InkWell(
+      onTap: onPressed,
+      child: Row(
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.inter(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xFF1A1A1A),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Icon(
+            Icons.arrow_forward,
+            size: 16,
+            color: const Color(0xFF666666),
+          ),
+        ],
       ),
-    ).animate().slideY(
-      duration: Duration(milliseconds: 600),
-      delay: Duration(milliseconds: 400),
     );
   }
 
@@ -641,44 +368,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       );
     } catch (e) {
       print('Could not launch $url with url_launcher: $e');
-      // Fallback usando dart:html para web
       try {
         html.window.open(url, '_blank');
       } catch (htmlError) {
         print('Could not launch $url with dart:html: $htmlError');
       }
     }
-  }
-
-  Widget _buildArtistButton(String title, String url, IconData icon, Color color) {
-    final screenSize = MediaQuery.of(context).size;
-    final isMobile = screenSize.width <= 768;
-    
-    return ElevatedButton.icon(
-      onPressed: () => _launchURL(url),
-      icon: FaIcon(icon, color: color, size: 18),
-      label: Text(
-        title,
-        style: GoogleFonts.orbitron(
-          fontWeight: FontWeight.bold,
-          fontSize: isMobile ? 14 : 16,
-        ),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF00FF00),
-        foregroundColor: Colors.black,
-        padding: EdgeInsets.symmetric(
-          horizontal: isMobile ? 20 : 25,
-          vertical: 12,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
-        minimumSize: isMobile ? Size(double.infinity, 50) : null,
-      ),
-    ).animate().scale(
-      duration: Duration(milliseconds: 800),
-      delay: Duration(milliseconds: 300),
-    );
   }
 }
