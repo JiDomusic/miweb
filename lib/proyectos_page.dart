@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'dart:html' as html;
 import 'language_provider.dart';
 import 'widgets/language_toggle.dart';
+import 'theme.dart';
 
 class ProyectosPage extends StatelessWidget {
   const ProyectosPage({super.key});
@@ -30,7 +31,7 @@ class ProyectosPage extends StatelessWidget {
             ],
             'url': 'https://sodita-314e6.web.app/',
             'categoria': languageProvider.translate('business'),
-            'color': Color(0xFF00FF00),
+            'color': AppColors.accent,
           },
           {
             'titulo': 'Ciudad de Letras',
@@ -45,7 +46,7 @@ class ProyectosPage extends StatelessWidget {
             ],
             'url': 'https://ciudaddeletras-97276.web.app/',
             'categoria': languageProvider.translate('creative'),
-            'color': Color(0xFFFF1493),
+            'color': AppColors.accent,
           },
           {
             'titulo': 'Kraken Reparaciones',
@@ -57,7 +58,7 @@ class ProyectosPage extends StatelessWidget {
             ],
             'url': 'https://krakenreparaciones.com/',
             'categoria': languageProvider.translate('business'),
-            'color': Color(0xFF00FF00),
+            'color': AppColors.accent,
           },
           {
             'titulo': 'Biblio Walsh',
@@ -69,7 +70,7 @@ class ProyectosPage extends StatelessWidget {
             ],
             'url': 'https://bibliowalsh.org/',
             'categoria': languageProvider.translate('education'),
-            'color': Color(0xFF00FF00),
+            'color': AppColors.accent,
           },
           {
             'titulo': 'Emiliana Arias Portfolio',
@@ -82,7 +83,7 @@ class ProyectosPage extends StatelessWidget {
             ],
             'url': 'https://www.emilianaarias.com/',
             'categoria': languageProvider.translate('portfolio'),
-            'color': Color(0xFFFF1493),
+            'color': AppColors.accent,
           },
           {
             'titulo': 'Punto Rojo Productora',
@@ -94,7 +95,7 @@ class ProyectosPage extends StatelessWidget {
             ],
             'url': 'https://www.puntorojoproductora.com.ar/',
             'categoria': languageProvider.translate('creative'),
-            'color': Color(0xFFFF1493),
+            'color': AppColors.accent,
           },
         ];
 
@@ -110,7 +111,7 @@ class ProyectosPage extends StatelessWidget {
             ],
             'url': '#',
             'categoria': languageProvider.translate('kids_app'),
-            'color': Color(0xFF00FF00),
+            'color': AppColors.accent,
             'inDevelopment': true,
           },
           {
@@ -124,7 +125,7 @@ class ProyectosPage extends StatelessWidget {
             ],
             'url': '#',
             'categoria': languageProvider.translate('dating_app'),
-            'color': Color(0xFFFF1493),
+            'color': AppColors.accent,
             'inDevelopment': true,
             'image': 'assets/images/conecta.jpg',
           },
@@ -136,51 +137,35 @@ class ProyectosPage extends StatelessWidget {
         final crossAxisCount = isDesktop ? 3 : (isMobile ? 1 : 2);
 
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.background,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppColors.background,
             elevation: 0,
             title: Text(
               languageProvider.translate('my_projects'),
-              style: GoogleFonts.orbitron(
-                color: Color(0xFFFF1493),
-                fontWeight: FontWeight.bold,
+              style: GoogleFonts.playfairDisplay(
+                color: AppColors.ink,
+                fontWeight: FontWeight.w600,
                 fontSize: 24,
               ),
             ),
-            iconTheme: IconThemeData(color: Color(0xFFFF1493)),
-            actions: [
+            iconTheme: const IconThemeData(color: AppColors.ink),
+            actions: const [
               Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: LanguageToggle(),
               ),
             ],
           ),
-          body: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.black,
-                  Colors.grey[900]!,
-                  Colors.black,
-                ],
-              ),
-            ),
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Current Projects Section
-                  _buildCurrentProjectsSection(languageProvider, currentProjects, isDesktop),
-                  SizedBox(height: 50),
-                  
-                  // Featured Projects Section
-                  _buildFeaturedProjectsSection(languageProvider, proyectos, isDesktop, crossAxisCount),
-                ],
-              ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildCurrentProjectsSection(languageProvider, currentProjects, isDesktop),
+                const SizedBox(height: 40),
+                _buildFeaturedProjectsSection(languageProvider, proyectos, isDesktop, crossAxisCount),
+              ],
             ),
           ),
         );
@@ -198,26 +183,26 @@ class ProyectosPage extends StatelessWidget {
             children: [
               Text(
                 languageProvider.translate('current_projects'),
-                style: GoogleFonts.orbitron(
+                style: GoogleFonts.playfairDisplay(
                   fontSize: isDesktop ? 36 : 28,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF00FF00),
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.ink,
                 ),
               ).animate().slideX(duration: Duration(milliseconds: 600)),
               SizedBox(width: 15),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: Color(0xFF00FF00).withValues(alpha: 0.2),
+                  color: AppColors.accentSoft.withOpacity(0.6),
                   borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Color(0xFF00FF00)),
+                  border: Border.all(color: AppColors.accent),
                 ),
                 child: Text(
                   languageProvider.translate('in_development'),
-                  style: GoogleFonts.robotoMono(
+                  style: GoogleFonts.inter(
                     fontSize: 12,
-                    color: Color(0xFF00FF00),
-                    fontWeight: FontWeight.bold,
+                    color: AppColors.accent,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
               ).animate().scale(
@@ -232,7 +217,7 @@ class ProyectosPage extends StatelessWidget {
             width: 100,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Color(0xFF00FF00), Color(0xFFFF1493)],
+                colors: [AppColors.accent, AppColors.accentSoft],
               ),
               borderRadius: BorderRadius.circular(2),
             ),
@@ -291,17 +276,17 @@ class ProyectosPage extends StatelessWidget {
     final hasImage = proyecto['image'] != null;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: proyecto['color'].withValues(alpha: 0.5),
-          width: 2,
+          color: proyecto['color'].withOpacity(0.3),
+          width: 1.4,
         ),
         boxShadow: [
           BoxShadow(
-            color: proyecto['color'].withValues(alpha: 0.2),
-            blurRadius: 20,
-            spreadRadius: 3,
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 22,
+            offset: const Offset(0, 10),
           ),
         ],
       ),
@@ -325,7 +310,7 @@ class ProyectosPage extends StatelessWidget {
                     Provider.of<LanguageProvider>(context).translate('in_development'),
                     style: GoogleFonts.robotoMono(
                       fontSize: 8,
-                      color: Colors.black,
+                      color: AppColors.ink,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -350,7 +335,7 @@ class ProyectosPage extends StatelessWidget {
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
                               return Container(
-                                color: proyecto['color'].withValues(alpha: 0.1),
+                                color: proyecto['color'].withOpacity(0.1),
                                 child: Center(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -388,10 +373,10 @@ class ProyectosPage extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                               decoration: BoxDecoration(
-                                color: proyecto['color'].withValues(alpha: 0.2),
+                                color: proyecto['color'].withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(
-                                  color: proyecto['color'].withValues(alpha: 0.5),
+                                  color: proyecto['color'].withOpacity(0.5),
                                 ),
                               ),
                               child: Text(
@@ -417,7 +402,7 @@ class ProyectosPage extends StatelessWidget {
                               child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                                 decoration: BoxDecoration(
-                                  color: proyecto['color'].withValues(alpha: 0.1),
+                                  color: proyecto['color'].withOpacity(0.1),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(color: proyecto['color']),
                                 ),
@@ -446,37 +431,37 @@ class ProyectosPage extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: proyecto['color'].withValues(alpha: 0.2),
+                          color: AppColors.accentSoft.withOpacity(0.6),
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
-                            color: proyecto['color'].withValues(alpha: 0.5),
+                            color: AppColors.accent,
                           ),
                         ),
                         child: Text(
                           proyecto['categoria'],
-                          style: GoogleFonts.robotoMono(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
-                            color: proyecto['color'],
-                            fontWeight: FontWeight.bold,
+                            color: AppColors.accent,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
                       SizedBox(height: 15),
                       Text(
                         proyecto['titulo'],
-                        style: GoogleFonts.orbitron(
+                        style: GoogleFonts.playfairDisplay(
                           fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: proyecto['color'],
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.ink,
                         ),
                       ),
                       SizedBox(height: 12),
                       Flexible(
                         child: Text(
                           proyecto['descripcion'],
-                          style: GoogleFonts.robotoMono(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
-                            color: Colors.white70,
+                            color: AppColors.muted,
                             height: 1.3,
                           ),
                           maxLines: 2,
@@ -491,17 +476,17 @@ class ProyectosPage extends StatelessWidget {
                           return Container(
                             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                             decoration: BoxDecoration(
-                              color: Colors.black.withValues(alpha: 0.3),
+                              color: AppColors.surface,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: Colors.white.withValues(alpha: 0.2),
+                                color: AppColors.border,
                               ),
                             ),
                             child: Text(
                               tech,
-                              style: GoogleFonts.robotoMono(
+                              style: GoogleFonts.inter(
                                 fontSize: 11,
-                                color: Colors.white60,
+                                color: AppColors.muted,
                               ),
                             ),
                           );
@@ -512,16 +497,16 @@ class ProyectosPage extends StatelessWidget {
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           decoration: BoxDecoration(
-                            color: proyecto['color'].withValues(alpha: 0.1),
+                            color: AppColors.accentSoft.withOpacity(0.8),
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: proyecto['color']),
+                            border: Border.all(color: AppColors.accent),
                           ),
                           child: Text(
                             Provider.of<LanguageProvider>(context).isEnglish ? 'Coming Soon' : 'Próximamente',
-                            style: GoogleFonts.orbitron(
-                              fontWeight: FontWeight.bold,
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.w700,
                               fontSize: 14,
-                              color: proyecto['color'],
+                              color: AppColors.ink,
                             ),
                           ),
                         ),
@@ -612,17 +597,17 @@ class ProyectosPage extends StatelessWidget {
   Widget _buildProjectCard(Map<String, dynamic> proyecto, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: proyecto['color'].withValues(alpha: 0.3),
-          width: 2,
+          color: proyecto['color'].withOpacity(0.3),
+          width: 1.4,
         ),
         boxShadow: [
           BoxShadow(
-            color: proyecto['color'].withValues(alpha: 0.1),
-            blurRadius: 15,
-            spreadRadius: 3,
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -640,7 +625,7 @@ class ProyectosPage extends StatelessWidget {
                   shape: BoxShape.circle,
                   gradient: RadialGradient(
                     colors: [
-                      proyecto['color'].withValues(alpha: 0.1),
+                      proyecto['color'].withOpacity(0.1),
                       Colors.transparent,
                     ],
                   ),
@@ -657,18 +642,18 @@ class ProyectosPage extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: proyecto['color'].withValues(alpha: 0.2),
+                          color: AppColors.accentSoft.withOpacity(0.6),
                           borderRadius: BorderRadius.circular(15),
                           border: Border.all(
-                            color: proyecto['color'].withValues(alpha: 0.5),
+                            color: AppColors.accent,
                           ),
                         ),
                         child: Text(
                           proyecto['categoria'],
-                          style: GoogleFonts.robotoMono(
+                          style: GoogleFonts.inter(
                             fontSize: 12,
-                            color: proyecto['color'],
-                            fontWeight: FontWeight.bold,
+                            color: AppColors.accent,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
@@ -677,19 +662,19 @@ class ProyectosPage extends StatelessWidget {
                   SizedBox(height: 12),
                   Text(
                     proyecto['titulo'],
-                    style: GoogleFonts.orbitron(
+                    style: GoogleFonts.playfairDisplay(
                       fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: proyecto['color'],
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.ink,
                     ),
                   ),
                   SizedBox(height: 10),
                   Flexible(
                     child: Text(
                       proyecto['descripcion'],
-                      style: GoogleFonts.robotoMono(
+                      style: GoogleFonts.inter(
                         fontSize: 11,
-                        color: Colors.white70,
+                        color: AppColors.muted,
                         height: 1.3,
                       ),
                       maxLines: 2,
@@ -704,17 +689,17 @@ class ProyectosPage extends StatelessWidget {
                       return Container(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.3),
+                          color: AppColors.surface,
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.2),
+                            color: AppColors.border,
                           ),
                         ),
                         child: Text(
                           tech,
-                          style: GoogleFonts.robotoMono(
+                          style: GoogleFonts.inter(
                             fontSize: 11,
-                            color: Colors.white60,
+                            color: AppColors.muted,
                           ),
                         ),
                       );
@@ -727,23 +712,23 @@ class ProyectosPage extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: proyecto['color'].withValues(alpha: 0.1),
+                          color: AppColors.accentSoft.withOpacity(0.7),
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: proyecto['color'].withValues(alpha: 0.3),
+                            color: AppColors.accent,
                           ),
                         ),
                         child: FaIcon(
                           FontAwesomeIcons.globe,
-                          color: proyecto['color'],
+                          color: AppColors.accent,
                           size: 20,
                         ),
                       ),
                       ElevatedButton(
                         onPressed: () => _launchURL(proyecto['url']),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: proyecto['color'],
-                          foregroundColor: Colors.black,
+                          backgroundColor: AppColors.ink,
+                          foregroundColor: Colors.white,
                           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
@@ -755,15 +740,17 @@ class ProyectosPage extends StatelessWidget {
                           children: [
                             Text(
                               Provider.of<LanguageProvider>(context).translate('view_live'),
-                              style: GoogleFonts.orbitron(
-                                fontWeight: FontWeight.bold,
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w700,
                                 fontSize: 12,
+                                color: Colors.white,
                               ),
                             ),
                             SizedBox(width: 8),
                             FaIcon(
                               FontAwesomeIcons.upRightFromSquare,
                               size: 12,
+                              color: Colors.white,
                             ),
                           ],
                         ),

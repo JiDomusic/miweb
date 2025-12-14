@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'dart:html' as html;
 import 'language_provider.dart';
 import 'widgets/language_toggle.dart';
+import 'theme.dart';
 
 class ContactoPage extends StatelessWidget {
   const ContactoPage({super.key});
@@ -18,52 +19,39 @@ class ContactoPage extends StatelessWidget {
         final screenSize = MediaQuery.of(context).size;
         
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: AppColors.background,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: AppColors.background,
             elevation: 0,
             title: Text(
               languageProvider.translate('get_in_touch'),
-              style: GoogleFonts.orbitron(
-                color: Color(0xFF00FF00),
-                fontWeight: FontWeight.bold,
+              style: GoogleFonts.playfairDisplay(
+                color: AppColors.ink,
+                fontWeight: FontWeight.w600,
                 fontSize: 24,
               ),
             ),
-            iconTheme: IconThemeData(color: Color(0xFF00FF00)),
-            actions: [
+            iconTheme: const IconThemeData(color: AppColors.ink),
+            actions: const [
               Padding(
                 padding: EdgeInsets.only(right: 16),
                 child: LanguageToggle(),
               ),
             ],
           ),
-          body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.black,
-              Colors.grey[900]!,
-              Colors.black,
-            ],
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildHeader(screenSize.width > 1024, languageProvider),
+                SizedBox(height: 32),
+                _buildContactSection(languageProvider),
+                SizedBox(height: 32),
+                _buildProjectsSection(languageProvider),
+              ],
+            ),
           ),
-        ),
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildHeader(screenSize.width > 1024, languageProvider),
-              SizedBox(height: 40),
-              _buildContactSection(languageProvider),
-              SizedBox(height: 40),
-              _buildProjectsSection(languageProvider),
-            ],
-          ),
-        ),
-        ),
         );
       },
     );
@@ -75,10 +63,10 @@ class ContactoPage extends StatelessWidget {
       children: [
         Text(
           languageProvider.translate('lets_connect'),
-          style: GoogleFonts.orbitron(
+          style: GoogleFonts.playfairDisplay(
             fontSize: isDesktop ? 36 : 28,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF00FF00),
+            fontWeight: FontWeight.w600,
+            color: AppColors.ink,
           ),
         ).animate().slideX(duration: Duration(milliseconds: 600)),
         SizedBox(height: 10),
@@ -87,7 +75,7 @@ class ContactoPage extends StatelessWidget {
           width: 120,
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Color(0xFF00FF00), Color(0xFFFF1493)],
+              colors: [AppColors.accent, AppColors.accentSoft],
             ),
             borderRadius: BorderRadius.circular(2),
           ),
@@ -98,9 +86,9 @@ class ContactoPage extends StatelessWidget {
         SizedBox(height: 20),
         Text(
           languageProvider.translate('ready_to_collaborate'),
-          style: GoogleFonts.robotoMono(
+          style: GoogleFonts.inter(
             fontSize: 16,
-            color: Colors.white70,
+            color: AppColors.muted,
             height: 1.6,
           ),
         ).animate().fadeIn(
@@ -117,7 +105,7 @@ class ContactoPage extends StatelessWidget {
         'icon': FontAwesomeIcons.envelope,
         'title': 'Email',
         'subtitle': 'equiz.rec@gmail.com',
-        'color': Color(0xFFFF1493),
+        'color': AppColors.accent,
         'action': () => _launchURL('mailto:equiz.rec@gmail.com'),
       },
       {
@@ -141,10 +129,10 @@ class ContactoPage extends StatelessWidget {
       children: [
         Text(
           'Contact Information',
-          style: GoogleFonts.orbitron(
+          style: GoogleFonts.playfairDisplay(
             fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFFF1493),
+            fontWeight: FontWeight.w600,
+            color: AppColors.ink,
           ),
         ).animate().slideY(duration: Duration(milliseconds: 600)),
         SizedBox(height: 25),
@@ -159,17 +147,17 @@ class ContactoPage extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(25),
                 decoration: BoxDecoration(
-                  color: Colors.grey[900],
+                  color: AppColors.surface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: (method['color'] as Color).withOpacity(0.3),
-                    width: 2,
+                    color: AppColors.border,
+                    width: 1.4,
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: (method['color'] as Color).withOpacity(0.15),
-                      blurRadius: 15,
-                      spreadRadius: 2,
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 18,
+                      offset: const Offset(0, 8),
                     ),
                   ],
                 ),
@@ -194,18 +182,18 @@ class ContactoPage extends StatelessWidget {
                         children: [
                           Text(
                             method['title'] as String,
-                            style: GoogleFonts.orbitron(
+                            style: GoogleFonts.inter(
                               fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w700,
                               color: method['color'] as Color,
                             ),
                           ),
                           SizedBox(height: 8),
                           Text(
                             method['subtitle'] as String,
-                            style: GoogleFonts.robotoMono(
+                            style: GoogleFonts.inter(
                               fontSize: 14,
-                              color: Colors.white70,
+                              color: AppColors.muted,
                             ),
                           ),
                         ],
@@ -249,7 +237,7 @@ class ContactoPage extends StatelessWidget {
         'icon': FontAwesomeIcons.camera,
         'title': 'Photography Blog',
         'subtitle': 'Visual Stories',
-        'color': Color(0xFFFF1493),
+        'color': AppColors.accent,
         'action': () => _launchURL('https://mariajimenadominguez.blogspot.com/?m=1'),
       },
       {
@@ -263,28 +251,28 @@ class ContactoPage extends StatelessWidget {
         'icon': FontAwesomeIcons.paintBrush,
         'title': 'Emiliana Arias',
         'subtitle': 'Portfolio Website',
-        'color': Color(0xFF00FF00),
+        'color': AppColors.accent,
         'action': () => _launchURL('https://www.emilianaarias.com/'),
       },
       {
         'icon': FontAwesomeIcons.screwdriverWrench,
         'title': 'Kraken Reparaciones',
         'subtitle': 'Business Website',
-        'color': Color(0xFFFF1493),
+        'color': AppColors.accent,
         'action': () => _launchURL('https://krakenreparaciones.com/'),
       },
       {
         'icon': FontAwesomeIcons.video,
         'title': 'Punto Rojo Productora',
         'subtitle': 'Creative Production',
-        'color': Color(0xFF00FF00),
+        'color': AppColors.accent,
         'action': () => _launchURL('https://www.puntorojoproductora.com.ar/'),
       },
       {
         'icon': FontAwesomeIcons.book,
         'title': 'Biblio Walsh',
         'subtitle': 'Digital Library',
-        'color': Color(0xFFFF1493),
+        'color': AppColors.accent,
         'action': () => _launchURL('https://bibliowalsh.org/'),
       },
     ];
@@ -299,7 +287,7 @@ class ContactoPage extends StatelessWidget {
               style: GoogleFonts.orbitron(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF00FF00),
+                color: AppColors.accent,
               ),
             ).animate().slideY(duration: Duration(milliseconds: 600)),
             SizedBox(height: 25),
@@ -321,16 +309,16 @@ class ContactoPage extends StatelessWidget {
                   child: Container(
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.grey[900],
+                      color: AppColors.surface,
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(
-                        color: (project['color'] as Color).withOpacity(0.3),
+                        color: AppColors.border,
                       ),
                       boxShadow: [
                         BoxShadow(
-                          color: (project['color'] as Color).withOpacity(0.1),
-                          blurRadius: 10,
-                          spreadRadius: 1,
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 16,
+                          offset: const Offset(0, 8),
                         ),
                       ],
                     ),
@@ -356,18 +344,18 @@ class ContactoPage extends StatelessWidget {
                             children: [
                               Text(
                                 project['title'] as String,
-                                style: GoogleFonts.orbitron(
+                                style: GoogleFonts.inter(
                                   fontSize: 14,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w700,
                                   color: project['color'] as Color,
                                 ),
                               ),
                               SizedBox(height: 4),
                               Text(
                                 project['subtitle'] as String,
-                                style: GoogleFonts.robotoMono(
+                                style: GoogleFonts.inter(
                                   fontSize: 12,
-                                  color: Colors.white60,
+                                  color: AppColors.muted,
                                 ),
                               ),
                             ],

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'language_provider.dart';
 import 'routes.dart';
+import 'theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,26 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Jido Portfolio',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
-        primaryColor: const Color(0xFFFF1493), // Fuchsia
-        colorScheme: ColorScheme.dark(
-          primary: const Color(0xFFFF1493), // Fuchsia
-          secondary: const Color(0xFF00FF00), // Neon Green
-          surface: Colors.grey[900]!,
-        ),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.black,
-          elevation: 0,
-        ),
-        textTheme: TextTheme(
-          bodyLarge: TextStyle(color: Colors.white),
-          bodyMedium: TextStyle(color: Colors.white),
-          headlineLarge: TextStyle(color: Color(0xFFFF1493), fontWeight: FontWeight.bold),
-          headlineMedium: TextStyle(color: Color(0xFF00FF00), fontWeight: FontWeight.bold),
-        ),
-      ),
+      theme: buildLightTheme(),
       initialRoute: '/',
       routes: appRoutes,
     );

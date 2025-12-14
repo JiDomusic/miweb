@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../theme.dart';
 
 class ContactoForm extends StatefulWidget {
   const ContactoForm({super.key});
@@ -43,9 +44,9 @@ class _ContactoFormState extends State<ContactoForm> {
           SnackBar(
             content: Text(
               'Message sent successfully!',
-              style: GoogleFonts.robotoMono(color: Colors.white),
+              style: GoogleFonts.inter(color: Colors.white),
             ),
-            backgroundColor: Color(0xFF00FF00),
+            backgroundColor: AppColors.accent,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -61,9 +62,9 @@ class _ContactoFormState extends State<ContactoForm> {
           SnackBar(
             content: Text(
               'Error sending message. Please try again.',
-              style: GoogleFonts.robotoMono(color: Colors.white),
+              style: GoogleFonts.inter(color: Colors.white),
             ),
-            backgroundColor: Color(0xFFFF1493),
+            backgroundColor: AppColors.ink,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -134,30 +135,30 @@ class _ContactoFormState extends State<ContactoForm> {
             child: ElevatedButton(
               onPressed: _isLoading ? null : _submitForm,
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xFF00FF00),
-                foregroundColor: Colors.black,
+                backgroundColor: AppColors.ink,
+                foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(25),
                 ),
                 elevation: 0,
-                shadowColor: Color(0xFF00FF00).withOpacity(0.3),
+                shadowColor: AppColors.ink.withOpacity(0.1),
               ),
               child: _isLoading
                   ? SizedBox(
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
-                        color: Colors.black,
+                        color: Colors.white,
                         strokeWidth: 2,
                       ),
                     )
                   : Text(
                       'Send Message',
-                      style: GoogleFonts.orbitron(
+                      style: GoogleFonts.inter(
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w700,
                       ),
-                    ),
+                  ),
             ),
           ).animate().slideY(
             duration: Duration(milliseconds: 600),
@@ -181,9 +182,9 @@ class _ContactoFormState extends State<ContactoForm> {
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
-            color: Color(0xFF00FF00).withOpacity(0.1),
-            blurRadius: 10,
-            spreadRadius: 1,
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 14,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
@@ -192,38 +193,38 @@ class _ContactoFormState extends State<ContactoForm> {
         validator: validator,
         keyboardType: keyboardType,
         maxLines: maxLines,
-        style: GoogleFonts.robotoMono(
-          color: Colors.white,
+        style: GoogleFonts.inter(
+          color: AppColors.ink,
           fontSize: 16,
         ),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: GoogleFonts.robotoMono(
-            color: Colors.white54,
+          labelStyle: GoogleFonts.inter(
+            color: AppColors.muted,
             fontSize: 14,
           ),
           prefixIcon: Icon(
             icon,
-            color: Color(0xFF00FF00),
+            color: AppColors.accent,
           ),
           filled: true,
-          fillColor: Colors.black.withOpacity(0.3),
+          fillColor: AppColors.surface,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(
-              color: Colors.white.withOpacity(0.2),
+              color: AppColors.border,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(
-              color: Colors.white.withOpacity(0.2),
+              color: AppColors.border,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(
-              color: Color(0xFF00FF00),
+              color: AppColors.accent,
               width: 2,
             ),
           ),
