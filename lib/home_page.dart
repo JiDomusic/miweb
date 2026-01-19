@@ -176,8 +176,8 @@ class _HomePageState extends State<HomePage> {
             width: isDesktop ? 650 : double.infinity,
             child: Text(
               isEn
-                  ? 'I create fast, clean web applications with Flutter and Firebase. From concept to deployment, focused on results.'
-                  : 'Creo aplicaciones web rápidas y limpias con Flutter y Firebase. Del concepto al deploy, enfocado en resultados.',
+                  ? 'I build fast apps with Flutter, Firebase, Supabase and AI integration. From idea to production.'
+                  : 'Creo apps rápidas con Flutter, Firebase, Supabase e integración de IA. De la idea a producción.',
               style: GoogleFonts.inter(
                 fontSize: isDesktop ? 22 : 18,
                 fontWeight: FontWeight.w400,
@@ -284,27 +284,27 @@ class _HomePageState extends State<HomePage> {
     final services = [
       {
         'num': '01',
-        'title': isEn ? 'Web Apps' : 'Apps Web',
+        'title': 'Frontend',
         'desc': isEn
-            ? 'Fast, responsive applications with Flutter Web, React and modern frameworks.'
-            : 'Aplicaciones rápidas y responsivas con Flutter Web, React y frameworks modernos.',
-        'tech': 'Flutter · React · TypeScript',
+            ? 'Web and mobile interfaces with Flutter. Responsive design, animations and optimal UX.'
+            : 'Interfaces web y móviles con Flutter. Diseño responsivo, animaciones y UX óptima.',
+        'tech': 'Flutter · Dart · UI/UX',
       },
       {
         'num': '02',
-        'title': isEn ? 'Mobile' : 'Móvil',
+        'title': 'Backend',
         'desc': isEn
-            ? 'Cross-platform apps with native performance for iOS and Android.'
-            : 'Apps multiplataforma con rendimiento nativo para iOS y Android.',
-        'tech': 'Flutter · Dart · Native',
+            ? 'APIs, databases, authentication and business logic. Real-time and scalable.'
+            : 'APIs, bases de datos, autenticación y lógica de negocio. Tiempo real y escalable.',
+        'tech': 'Firebase · Supabase · Node.js · SQL',
       },
       {
         'num': '03',
-        'title': 'Backend',
+        'title': isEn ? 'AI & Cloud' : 'IA & Cloud',
         'desc': isEn
-            ? 'Scalable infrastructure with databases, APIs and cloud services.'
-            : 'Infraestructura escalable con bases de datos, APIs y servicios cloud.',
-        'tech': 'Firebase · Supabase · Node.js · SQL',
+            ? 'AI integration, chatbots, cloud deployment and process automation.'
+            : 'Integración de IA, chatbots, deploy en cloud y automatización de procesos.',
+        'tech': 'OpenAI · Claude · Google Cloud',
       },
     ];
 

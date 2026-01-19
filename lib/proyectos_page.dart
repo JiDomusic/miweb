@@ -29,7 +29,7 @@ class ProyectosPage extends StatelessWidget {
             'technologies': ['Flutter Web', 'Firebase', 'Cloud Functions'],
             'url': 'https://laplace-web.web.app/',
             'category': isEn ? 'Education' : 'Educación',
-            'image': 'assets/images/laplace.png',
+            'image': 'assets/images/sodita.jpg',
           },
           {
             'title': 'SODITA',
@@ -37,9 +37,9 @@ class ProyectosPage extends StatelessWidget {
                 ? 'Restaurant website with menu, events and contact.'
                 : 'Sitio web del restaurante con menú, eventos y contacto.',
             'technologies': ['Flutter Web', 'Firebase', 'UI/UX'],
-            'url': 'https://sodita.com.ar',
+            'url': 'https://www.sodita.com.ar',
             'category': isEn ? 'Business' : 'Negocio',
-            'image': 'assets/images/sodita.png',
+            'image': 'assets/images/reservas.jpg',
           },
           {
             'title': isEn ? 'SODITA Reservations' : 'Reservas SODITA',
@@ -49,7 +49,7 @@ class ProyectosPage extends StatelessWidget {
             'technologies': ['Flutter Web', 'Firebase', isEn ? 'Realtime DB' : 'BD Tiempo Real'],
             'url': 'https://reservasodita.web.app/',
             'category': isEn ? 'Business' : 'Negocio',
-            'image': 'assets/images/reservas.png',
+            'image': 'assets/images/lujan.jpg',
           },
           {
             'title': 'Luján Allemand',
@@ -59,7 +59,7 @@ class ProyectosPage extends StatelessWidget {
             'technologies': ['Flutter Web', 'Firebase', isEn ? 'Gallery' : 'Galería'],
             'url': 'https://lujan-allemand.web.app',
             'category': 'Portfolio',
-            'image': 'assets/images/lujan.png',
+            'image': 'assets/images/laplace.jpg',
           },
           {
             'title': 'Kraken Reparaciones',
@@ -69,7 +69,7 @@ class ProyectosPage extends StatelessWidget {
             'technologies': ['Flutter Web', 'Firebase', 'WhatsApp API'],
             'url': 'https://krakenreparaciones.com/',
             'category': isEn ? 'Business' : 'Negocio',
-            'image': 'assets/images/kraken.png',
+            'image': 'assets/images/kraken.jpg',
           },
           {
             'title': 'Biblio Walsh',
@@ -79,6 +79,7 @@ class ProyectosPage extends StatelessWidget {
             'technologies': [isEn ? 'Digital Platform' : 'Plataforma Digital', isEn ? 'Database' : 'Base de Datos', isEn ? 'Search' : 'Búsqueda'],
             'url': 'https://bibliowalsh.org/',
             'category': isEn ? 'Education' : 'Educación',
+            'image': 'assets/images/bibliowalsh.jpg',
           },
           {
             'title': 'Emiliana Arias',
@@ -88,7 +89,7 @@ class ProyectosPage extends StatelessWidget {
             'technologies': ['Flutter Web', isEn ? 'Gallery' : 'Galería', isEn ? 'Animation' : 'Animación'],
             'url': 'https://www.emilianaarias.com/',
             'category': 'Portfolio',
-            'image': 'assets/images/emiliana.png',
+            'image': 'assets/images/emiliana.jpg',
           },
           {
             'title': 'Punto Rojo Productora',
@@ -102,11 +103,12 @@ class ProyectosPage extends StatelessWidget {
           {
             'title': isEn ? 'Interactive Alphabet' : 'Alfabeto Interactivo',
             'description': isEn
-                ? 'Educational app to help children learn to read through engaging alphabet activities and games.'
-                : 'App educativa para ayudar a niños a aprender a leer con actividades del alfabeto y juegos.',
+                ? 'Educational app to help children learn to read through alphabet games.'
+                : 'App educativa para ayudar a niños a aprender a leer con juegos del alfabeto.',
             'technologies': ['Flutter', isEn ? 'Gamification' : 'Gamificación', isEn ? 'Education' : 'Educación'],
             'url': 'https://ciudaddeletras-97276.web.app',
             'category': isEn ? 'Kids App' : 'App Infantil',
+            'image': 'assets/images/alfabeto.jpg',
           },
         ];
 
@@ -238,12 +240,14 @@ class ProyectosPage extends StatelessWidget {
   }
 
   Widget _buildProjectCard(Map<String, dynamic> project) {
+    final hasImage = project['image'] != null;
+
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () => _launchURL(project['url']),
         child: Container(
-          padding: const EdgeInsets.all(24),
+          clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(16),
@@ -252,72 +256,101 @@ class ProyectosPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: AppColors.accentSoft,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: Text(
-                      project['category'],
-                      style: GoogleFonts.inter(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.ink,
-                      ),
-                    ),
+              // Imagen de fondo
+              if (hasImage)
+                Expanded(
+                  flex: 3,
+                  child: Image.asset(
+                    project['image'],
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: AppColors.accentSoft,
+                        child: const Center(
+                          child: Icon(Icons.image, color: AppColors.muted, size: 40),
+                        ),
+                      );
+                    },
                   ),
-                  const Icon(Icons.north_east, size: 16, color: AppColors.muted),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Text(
-                project['title'],
-                style: GoogleFonts.inter(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.ink,
-                  letterSpacing: -0.5,
                 ),
-              ),
-              const SizedBox(height: 8),
+              // Contenido
               Expanded(
-                child: Text(
-                  project['description'],
-                  style: GoogleFonts.inter(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.muted,
-                    height: 1.5,
-                  ),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: (project['technologies'] as List<String>).map((tech) {
-                  return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.border),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: Text(
-                      tech,
-                      style: GoogleFonts.inter(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.muted,
+                flex: hasImage ? 2 : 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: AppColors.accentSoft,
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Text(
+                              project['category'],
+                              style: GoogleFonts.inter(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.ink,
+                              ),
+                            ),
+                          ),
+                          const Icon(Icons.north_east, size: 14, color: AppColors.muted),
+                        ],
                       ),
-                    ),
-                  );
-                }).toList(),
+                      const SizedBox(height: 12),
+                      Text(
+                        project['title'],
+                        style: GoogleFonts.inter(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.ink,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Expanded(
+                        child: Text(
+                          project['description'],
+                          style: GoogleFonts.inter(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.muted,
+                            height: 1.4,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Wrap(
+                        spacing: 6,
+                        runSpacing: 6,
+                        children: (project['technologies'] as List<String>).take(3).map((tech) {
+                          return Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: AppColors.border),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: Text(
+                              tech,
+                              style: GoogleFonts.inter(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.muted,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
