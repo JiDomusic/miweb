@@ -13,11 +13,11 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBIEzMLcsHlZIal5vWhbyj9KspOK2ncgKQ',
-    authDomain: 'miweb-33817.firebaseapp.com',
-    projectId: 'miweb-33817',
-    storageBucket: 'miweb-33817.appspot.com',
-    messagingSenderId: '785549616155',
-    appId: '1:785549616155:web:7134f2fbd49db5dc1a04be',
+    apiKey: 'AIzaSyCyy-OgBNQEpUTszaQW8vvHKOIIsNCd1vY',
+    authDomain: 'miweb-portfolio.firebaseapp.com',
+    projectId: 'miweb-portfolio',
+    storageBucket: 'miweb-portfolio.firebasestorage.app',
+    messagingSenderId: '361737353646',
+    appId: '1:361737353646:web:6c50158b077e210329303f',
   );
 }

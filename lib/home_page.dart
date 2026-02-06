@@ -212,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                         const FaIcon(FontAwesomeIcons.whatsapp, color: Colors.white, size: 18),
                         const SizedBox(width: 12),
                         Text(
-                          isEn ? 'Start a project' : 'Iniciar proyecto',
+                          isEn ? 'Request a quote' : 'Solicitar presupuesto',
                           style: GoogleFonts.inter(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -239,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: Text(
-                      isEn ? 'View demo' : 'Ver demo',
+                      'sodita.com.ar',
                       style: GoogleFonts.inter(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
