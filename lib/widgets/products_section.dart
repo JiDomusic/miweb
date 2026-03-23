@@ -183,10 +183,16 @@ class _ProductsSectionState extends State<ProductsSection> {
                         setState(() => _reservasPage = i),
                     itemCount: _reservasImages.length,
                     itemBuilder: (context, i) {
-                      return Image.asset(
-                        _reservasImages[i],
-                        fit: BoxFit.cover,
-                        width: double.infinity,
+                      return MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () => _showImageDialog(_reservasImages[i]),
+                          child: Image.asset(
+                            _reservasImages[i],
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -330,6 +336,11 @@ class _ProductsSectionState extends State<ProductsSection> {
 
                 const SizedBox(height: 24),
 
+                // Hecho en Argentina
+                _buildMadeInArgentina(isEn),
+
+                const SizedBox(height: 20),
+
                 // CTA - 15 días gratis
                 _buildFreeTrial(
                   isEn ? 'Try 15 days free' : 'Probá 15 días gratis',
@@ -380,10 +391,16 @@ class _ProductsSectionState extends State<ProductsSection> {
                         setState(() => _bellaColorPage = i),
                     itemCount: _bellaColorImages.length,
                     itemBuilder: (context, i) {
-                      return Image.asset(
-                        _bellaColorImages[i],
-                        fit: BoxFit.cover,
-                        width: double.infinity,
+                      return MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () => _showImageDialog(_bellaColorImages[i]),
+                          child: Image.asset(
+                            _bellaColorImages[i],
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          ),
+                        ),
                       );
                     },
                   ),
@@ -623,6 +640,11 @@ class _ProductsSectionState extends State<ProductsSection> {
 
                 const SizedBox(height: 24),
 
+                // Hecho en Argentina
+                _buildMadeInArgentina(isEn),
+
+                const SizedBox(height: 20),
+
                 // CTA - 15 días gratis
                 _buildFreeTrial(
                   isEn ? 'Try 15 days free' : 'Probá 15 días gratis',
@@ -854,6 +876,80 @@ class _ProductsSectionState extends State<ProductsSection> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMadeInArgentina(bool isEn) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+      decoration: BoxDecoration(
+        color: AppColors.accentSoft,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('🇦🇷', style: TextStyle(fontSize: 20)),
+          const SizedBox(width: 10),
+          Text(
+            isEn ? 'Made in Argentina' : 'Hecho en Argentina',
+            style: GoogleFonts.inter(
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+              color: AppColors.ink,
+              letterSpacing: 0.5,
+            ),
+          ),
+          const SizedBox(width: 10),
+          const Text('🇦🇷', style: TextStyle(fontSize: 20)),
+        ],
+      ),
+    );
+  }
+
+  void _showImageDialog(String imagePath) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black87,
+      builder: (ctx) => GestureDetector(
+        onTap: () => Navigator.of(ctx).pop(),
+        child: Stack(
+          children: [
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    imagePath,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 16,
+              right: 16,
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => Navigator.of(ctx).pop(),
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.9),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(Icons.close, size: 24, color: AppColors.ink),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
