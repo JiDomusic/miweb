@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'dart:html' as html;
 import 'language_provider.dart';
 import 'widgets/language_toggle.dart';
+import 'widgets/products_section.dart';
 import 'theme.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,6 +42,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildHeroSection(isDesktop, isEn),
+                    ProductsSection(isDesktop: isDesktop, isEn: isEn),
                     _buildServicesSection(isDesktop, isEn),
                     _buildProjectsSection(context, isDesktop, isEn),
                     _buildCTASection(isDesktop, isEn),
@@ -70,26 +72,53 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onTap: () => _launchURL(_instagramUrl),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const FaIcon(FontAwesomeIcons.instagram, size: 16, color: AppColors.ink),
-                    const SizedBox(width: 6),
-                    Text(
-                      'jido_only',
-                      style: GoogleFonts.inter(
-                        fontSize: isDesktop ? 16 : 14,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.ink,
-                      ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () => _launchURL(_instagramUrl),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const FaIcon(FontAwesomeIcons.instagram, size: 16, color: AppColors.ink),
+                        const SizedBox(width: 6),
+                        Text(
+                          'jido_only',
+                          style: GoogleFonts.inter(
+                            fontSize: isDesktop ? 16 : 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.ink,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                SizedBox(width: isDesktop ? 20 : 12),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () => _launchURL('https://www.instagram.com/programacion_jj'),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const FaIcon(FontAwesomeIcons.instagram, size: 16, color: AppColors.ink),
+                        const SizedBox(width: 6),
+                        Text(
+                          'programacion_jj',
+                          style: GoogleFonts.inter(
+                            fontSize: isDesktop ? 16 : 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.ink,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
             Row(
               children: [
