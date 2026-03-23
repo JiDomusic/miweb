@@ -34,7 +34,7 @@ class _ProductsSectionState extends State<ProductsSection> {
   static const _instagramReelUrl = 'https://www.instagram.com/reel/DWCBR1hEXZw/?igsh=MWhkcGtiZTdjYXJieA==';
 
   final _bellaColorImages = const [
-    'assets/images/bellacolor_promo.png',
+    'assets/images/bellacolor_promo_new.jpg',
     'assets/images/bellacolor3.jpg',
     'assets/images/bellacolor2.jpg',
     'assets/images/bellacolor_vertical.png',
@@ -382,7 +382,7 @@ class _ProductsSectionState extends State<ProductsSection> {
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(20)),
             child: AspectRatio(
-              aspectRatio: 16 / 10,
+              aspectRatio: 9 / 16,
               child: Stack(
                 children: [
                   PageView.builder(
