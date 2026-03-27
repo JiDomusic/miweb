@@ -19,11 +19,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _isHoveringCTA = false;
   bool _isHoveringDemo = false;
+  bool _isHoveringDietetica = false;
   int _hoveredProject = -1;
 
   static const _whatsappUrl = 'https://wa.me/3413363551';
-  static const _instagramUrl = 'https://www.instagram.com/jido_only';
+  static const _instagramUrl = 'https://www.instagram.com/programacion_jj';
   static const _demoUrl = 'https://sodita.com.ar';
+  static const _dieteticaUrl = 'https://dietetica-centro.web.app/';
 
   @override
   Widget build(BuildContext context) {
@@ -278,6 +280,31 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                onEnter: (_) => setState(() => _isHoveringDietetica = true),
+                onExit: (_) => setState(() => _isHoveringDietetica = false),
+                child: GestureDetector(
+                  onTap: () => _launchURL(_dieteticaUrl),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
+                    decoration: BoxDecoration(
+                      color: _isHoveringDietetica ? AppColors.accentSoft : Colors.transparent,
+                      border: Border.all(color: AppColors.border, width: 1.5),
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Text(
+                      'dietetica-centro.web.app',
+                      style: GoogleFonts.inter(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.ink,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
           SizedBox(height: isDesktop ? 60 : 40),
@@ -453,6 +480,12 @@ class _HomePageState extends State<HomePage> {
         'title': 'Kraken',
         'desc': isEn ? 'Technical services' : 'Servicios técnicos',
         'url': 'https://krakenreparaciones.com/',
+        'tag': isEn ? 'Business' : 'Negocio',
+      },
+      {
+        'title': 'Dietética Centro',
+        'desc': isEn ? 'Web service for health food stores in Argentina' : 'Servicio web para dietéticas en Argentina',
+        'url': 'https://dietetica-centro.web.app/',
         'tag': isEn ? 'Business' : 'Negocio',
       },
     ];

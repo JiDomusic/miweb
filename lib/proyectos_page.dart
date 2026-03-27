@@ -101,6 +101,16 @@ class ProyectosPage extends StatelessWidget {
             'category': isEn ? 'Creative' : 'Creativo',
           },
           {
+            'title': 'Dietética Centro',
+            'description': isEn
+                ? 'Web service for health food stores in Argentina.'
+                : 'Servicio web para dietéticas en Argentina.',
+            'technologies': ['Flutter Web', 'Firebase', 'UI/UX'],
+            'url': 'https://dietetica-centro.web.app/',
+            'category': isEn ? 'Business' : 'Negocio',
+            'image': 'assets/images/dietetica.png',
+          },
+          {
             'title': isEn ? 'Interactive Alphabet' : 'Alfabeto Interactivo',
             'description': isEn
                 ? 'Educational app to help children learn to read through alphabet games.'
