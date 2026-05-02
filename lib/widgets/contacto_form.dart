@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
 import '../theme.dart';
+import '../language_provider.dart';
 
 class ContactoForm extends StatefulWidget {
   const ContactoForm({super.key});
@@ -28,6 +30,8 @@ class _ContactoFormState extends State<ContactoForm> {
 
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
+      final isEn = Provider.of<LanguageProvider>(context, listen: false).isEnglish;
+
       setState(() {
         _isLoading = true;
       });
@@ -43,7 +47,7 @@ class _ContactoFormState extends State<ContactoForm> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Message sent successfully!',
+              isEn ? 'Message sent successfully!' : '¡Mensaje enviado exitosamente!',
               style: GoogleFonts.inter(color: Colors.white),
             ),
             backgroundColor: AppColors.accent,
@@ -61,7 +65,7 @@ class _ContactoFormState extends State<ContactoForm> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              'Error sending message. Please try again.',
+              isEn ? 'Error sending message. Please try again.' : 'Error al enviar el mensaje. Por favor intenta de nuevo.',
               style: GoogleFonts.inter(color: Colors.white),
             ),
             backgroundColor: AppColors.ink,
@@ -81,91 +85,97 @@ class _ContactoFormState extends State<ContactoForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          _buildTextField(
-            controller: _nameController,
-            label: 'Full Name',
-            icon: Icons.person_outline,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your name';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 25),
-          _buildTextField(
-            controller: _emailController,
-            label: 'Email Address',
-            icon: Icons.email_outlined,
-            keyboardType: TextInputType.emailAddress,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your email';
-              }
-              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
-                return 'Please enter a valid email';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 25),
-          _buildTextField(
-            controller: _messageController,
-            label: 'Your Message',
-            icon: Icons.message_outlined,
-            maxLines: 5,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your message';
-              }
-              if (value.length < 10) {
-                return 'Message must be at least 10 characters';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 35),
-          SizedBox(
-            width: double.infinity,
-            height: 55,
-            child: ElevatedButton(
-              onPressed: _isLoading ? null : _submitForm,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.ink,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                elevation: 0,
-                shadowColor: AppColors.ink.withOpacity(0.1),
+    return Consumer<LanguageProvider>(
+      builder: (context, languageProvider, child) {
+        final isEn = languageProvider.isEnglish;
+
+        return Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              _buildTextField(
+                controller: _nameController,
+                label: isEn ? 'Full Name' : 'Nombre Completo',
+                icon: Icons.person_outline,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return isEn ? 'Please enter your name' : 'Por favor ingresa tu nombre';
+                  }
+                  return null;
+                },
               ),
-              child: _isLoading
-                  ? SizedBox(
-                      width: 24,
-                      height: 24,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : Text(
-                      'Send Message',
-                      style: GoogleFonts.inter(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
+              SizedBox(height: 25),
+              _buildTextField(
+                controller: _emailController,
+                label: isEn ? 'Email Address' : 'Correo Electrónico',
+                icon: Icons.email_outlined,
+                keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return isEn ? 'Please enter your email' : 'Por favor ingresa tu correo';
+                  }
+                  if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                    return isEn ? 'Please enter a valid email' : 'Por favor ingresa un correo válido';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 25),
+              _buildTextField(
+                controller: _messageController,
+                label: isEn ? 'Your Message' : 'Tu Mensaje',
+                icon: Icons.message_outlined,
+                maxLines: 5,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return isEn ? 'Please enter your message' : 'Por favor ingresa tu mensaje';
+                  }
+                  if (value.length < 10) {
+                    return isEn ? 'Message must be at least 10 characters' : 'El mensaje debe tener al menos 10 caracteres';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: 35),
+              SizedBox(
+                width: double.infinity,
+                height: 55,
+                child: ElevatedButton(
+                  onPressed: _isLoading ? null : _submitForm,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.ink,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    elevation: 0,
+                    shadowColor: AppColors.ink.withOpacity(0.1),
                   ),
-            ),
-          ).animate().slideY(
-            duration: Duration(milliseconds: 600),
-            delay: Duration(milliseconds: 800),
+                  child: _isLoading
+                      ? SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : Text(
+                          isEn ? 'Send Message' : 'Enviar Mensaje',
+                          style: GoogleFonts.inter(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                ),
+              ).animate().slideY(
+                duration: Duration(milliseconds: 600),
+                delay: Duration(milliseconds: 800),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 

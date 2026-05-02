@@ -22,10 +22,10 @@ class _HomePageState extends State<HomePage> {
   bool _isHoveringDietetica = false;
   int _hoveredProject = -1;
 
-  static const _whatsappUrl = 'https://wa.me/3413363551';
-  static const _instagramUrl = 'https://www.instagram.com/programacion_jj';
-  static const _demoUrl = 'https://sodita.com.ar';
-  static const _dieteticaUrl = 'https://dietetica-centro.web.app/';
+  static const _whatsappUrl = 'https://wa.me/5493413363551';
+  static const _instagramUrl = 'https://www.instagram.com/programacionjj';
+  static const _demoUrl = 'https://bella-color.web.app';
+  static const _presupuestoText = 'Hola! Quiero un presupuesto para mi salón/barbería';
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
                     _buildHeroSection(isDesktop, isEn),
                     ProductsSection(isDesktop: isDesktop, isEn: isEn),
                     _buildServicesSection(isDesktop, isEn),
+                    _buildPricingSection(isDesktop, isEn),
                     _buildProjectsSection(context, isDesktop, isEn),
                     _buildCTASection(isDesktop, isEn),
                     _buildFooter(context, isDesktop, isEn),
@@ -74,53 +75,26 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () => _launchURL(_instagramUrl),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const FaIcon(FontAwesomeIcons.instagram, size: 16, color: AppColors.ink),
-                        const SizedBox(width: 6),
-                        Text(
-                          'jido_only',
-                          style: GoogleFonts.inter(
-                            fontSize: isDesktop ? 16 : 14,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.ink,
-                          ),
-                        ),
-                      ],
+            MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: GestureDetector(
+                onTap: () => _launchURL(_instagramUrl),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const FaIcon(FontAwesomeIcons.instagram, size: 16, color: AppColors.ink),
+                    const SizedBox(width: 6),
+                    Text(
+                      '@programacionjj',
+                      style: GoogleFonts.inter(
+                        fontSize: isDesktop ? 16 : 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.ink,
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                SizedBox(width: isDesktop ? 20 : 12),
-                MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: GestureDetector(
-                    onTap: () => _launchURL('https://www.instagram.com/programacion_jj'),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const FaIcon(FontAwesomeIcons.instagram, size: 16, color: AppColors.ink),
-                        const SizedBox(width: 6),
-                        Text(
-                          'programacion_jj',
-                          style: GoogleFonts.inter(
-                            fontSize: isDesktop ? 16 : 14,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.ink,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
             Row(
               children: [
@@ -190,34 +164,34 @@ class _HomePageState extends State<HomePage> {
           // Headline grande
           Text(
             isEn
-                ? 'Building digital\nproducts that work.'
-                : 'Construyo productos\ndigitales que funcionan.',
+                ? 'Systems that grow\nyour business.'
+                : 'Sistemas que hacen\ncrecer tu negocio.',
             style: GoogleFonts.inter(
-              fontSize: isDesktop ? 80 : 44,
+              fontSize: isDesktop ? 56 : 40,
               fontWeight: FontWeight.w600,
               color: AppColors.ink,
               height: 1.0,
-              letterSpacing: -3,
+              letterSpacing: -2,
             ),
           ),
-          SizedBox(height: isDesktop ? 40 : 28),
+          SizedBox(height: isDesktop ? 28 : 20),
 
           // Subtítulo
           SizedBox(
             width: isDesktop ? 650 : double.infinity,
             child: Text(
               isEn
-                  ? 'I build fast apps with Flutter, Firebase, Supabase and AI integration. From idea to production.'
-                  : 'Creo apps rápidas con Flutter, Firebase, Supabase e integración de IA. De la idea a producción.',
+                  ? 'Apps for salons, barbershops and beauty businesses in Latin America. Online booking, payments, and management systems.'
+                  : 'Apps para salones, barberías y negocios de belleza en Latinoamérica. Reservas online, pagos y sistemas de gestión.',
               style: GoogleFonts.inter(
-                fontSize: isDesktop ? 22 : 18,
+                fontSize: isDesktop ? 18 : 16,
                 fontWeight: FontWeight.w400,
                 color: AppColors.muted,
                 height: 1.5,
               ),
             ),
           ),
-          SizedBox(height: isDesktop ? 50 : 36),
+          SizedBox(height: isDesktop ? 36 : 28),
 
           // CTAs
           Wrap(
@@ -260,7 +234,7 @@ class _HomePageState extends State<HomePage> {
                 onEnter: (_) => setState(() => _isHoveringDemo = true),
                 onExit: (_) => setState(() => _isHoveringDemo = false),
                 child: GestureDetector(
-                  onTap: () => _launchURL(_demoUrl),
+                  onTap: () => Navigator.pushNamed(context, '/proyectos'),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
@@ -270,32 +244,7 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: Text(
-                      'sodita.com.ar',
-                      style: GoogleFonts.inter(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.ink,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                onEnter: (_) => setState(() => _isHoveringDietetica = true),
-                onExit: (_) => setState(() => _isHoveringDietetica = false),
-                child: GestureDetector(
-                  onTap: () => _launchURL(_dieteticaUrl),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 18),
-                    decoration: BoxDecoration(
-                      color: _isHoveringDietetica ? AppColors.accentSoft : Colors.transparent,
-                      border: Border.all(color: AppColors.border, width: 1.5),
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: Text(
-                      'dietetica-centro.web.app',
+                      isEn ? 'See projects' : 'Ver proyectos',
                       style: GoogleFonts.inter(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
@@ -320,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                   const FaIcon(FontAwesomeIcons.instagram, size: 18, color: AppColors.muted),
                   const SizedBox(width: 10),
                   Text(
-                    '@jido_only',
+                    '@programacionjj',
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
@@ -453,6 +402,164 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPricingSection(bool isDesktop, bool isEn) {
+    final plans = [
+      {
+        'icon': FontAwesomeIcons.briefcase,
+        'title': isEn ? 'Hourly Work' : 'Trabajo por Hora',
+        'price': 'USD 25',
+        'period': isEn ? '/hour' : '/hora',
+        'desc': isEn ? 'Perfect for consultations and small tasks' : 'Perfecto para consultas y tareas pequeñas',
+      },
+      {
+        'icon': FontAwesomeIcons.wrench,
+        'title': isEn ? 'Maintenance' : 'Mantenimiento',
+        'price': 'USD 600',
+        'period': isEn ? '/month' : '/mes',
+        'desc': isEn ? 'Ongoing support and updates for your app' : 'Soporte continuo y actualizaciones de tu app',
+      },
+      {
+        'icon': FontAwesomeIcons.rocket,
+        'title': isEn ? 'Custom System' : 'Sistema a Medida',
+        'price': isEn ? 'Quote' : 'Consultar',
+        'period': '',
+        'desc': isEn ? 'Full custom development for your business' : 'Desarrollo completo personalizado para tu negocio',
+      },
+    ];
+
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(
+        horizontal: isDesktop ? 60 : 24,
+        vertical: isDesktop ? 100 : 60,
+      ),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: AppColors.border)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            isEn ? 'PLANS & PRICING' : 'PLANES Y PRECIOS',
+            style: GoogleFonts.inter(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.muted,
+              letterSpacing: 2,
+            ),
+          ),
+          SizedBox(height: isDesktop ? 60 : 40),
+          isDesktop
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: plans.map((plan) => _pricingCard(plan, isDesktop, isEn)).toList(),
+                )
+              : Column(
+                  children: plans.asMap().entries.map((entry) {
+                    return Padding(
+                      padding: EdgeInsets.only(bottom: entry.key < 2 ? 24 : 0),
+                      child: _pricingCard(entry.value, isDesktop, isEn),
+                    );
+                  }).toList(),
+                ),
+        ],
+      ),
+    );
+  }
+
+  Widget _pricingCard(Map<String, dynamic> plan, bool isDesktop, bool isEn) {
+    return Expanded(
+      child: MouseRegion(
+        onEnter: (_) => setState(() {}),
+        onExit: (_) => setState(() {}),
+        child: Container(
+          padding: const EdgeInsets.all(32),
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.border),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FaIcon(plan['icon'], size: 32, color: AppColors.ink),
+              const SizedBox(height: 20),
+              Text(
+                plan['title'],
+                style: GoogleFonts.inter(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.ink,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Text(
+                    plan['price'],
+                    style: GoogleFonts.inter(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.ink,
+                    ),
+                  ),
+                  if (plan['period']!.isNotEmpty) ...[
+                    const SizedBox(width: 8),
+                    Text(
+                      plan['period'],
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.muted,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+              const SizedBox(height: 16),
+              Text(
+                plan['desc'],
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.muted,
+                  height: 1.6,
+                ),
+              ),
+              const SizedBox(height: 32),
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => _launchURL(_whatsappUrl),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    decoration: BoxDecoration(
+                      color: AppColors.ink,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: Center(
+                      child: Text(
+                        isEn ? 'Get started' : 'Comenzar',
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -704,7 +811,7 @@ class _HomePageState extends State<HomePage> {
                         const FaIcon(FontAwesomeIcons.instagram, color: Colors.white, size: 18),
                         const SizedBox(width: 12),
                         Text(
-                          '@jido_only',
+                          '@programacionjj',
                           style: GoogleFonts.inter(
                             fontSize: 15,
                             fontWeight: FontWeight.w600,
@@ -737,7 +844,7 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            '© 2026 jido.dev',
+            '© 2026 Programación JJ',
             style: GoogleFonts.inter(
               fontSize: 14,
               color: AppColors.muted,

@@ -21,6 +21,60 @@ class ProyectosPage extends StatelessWidget {
         final isMobile = screenSize.width <= 600;
 
         final List<Map<String, dynamic>> projects = [
+          // Beauty & Salon Management
+          {
+            'title': 'Bella Color',
+            'description': isEn
+                ? 'Premium booking system for salons and beauty businesses with staff management and service pricing.'
+                : 'Sistema de reservas premium para salones y negocios de belleza con gestión de personal y precios de servicios.',
+            'technologies': ['Flutter Web', 'Supabase', 'Real-time'],
+            'url': 'https://bella-color.web.app',
+            'category': isEn ? 'Beauty & Salons' : 'Belleza & Salones',
+            'image': 'assets/images/bellacolor_promo_new.jpg',
+          },
+          {
+            'title': 'Alaía',
+            'description': isEn
+                ? 'Laser hair removal booking system with session tracking and zone-based management.'
+                : 'Sistema de reservas para depilación láser con seguimiento de sesiones y gestión por zonas.',
+            'technologies': ['Flutter Web', 'Supabase', isEn ? 'Payments' : 'Pagos'],
+            'url': 'https://alaia-depilacion.web.app',
+            'category': isEn ? 'Beauty & Salons' : 'Belleza & Salones',
+            'image': 'assets/images/bellacolor3.jpg',
+          },
+          // Food Service
+          {
+            'title': isEn ? 'Reservas JJ' : 'Sistema de Reservas JJ',
+            'description': isEn
+                ? 'Multi-tenant restaurant reservation system with real-time availability, staff scheduling and admin dashboard.'
+                : 'Sistema multi-tenant de reservas para restaurantes con disponibilidad en tiempo real y panel admin.',
+            'technologies': ['Flutter Web', 'Supabase', isEn ? 'Real-time' : 'Tiempo Real'],
+            'url': 'https://reserva-jj.web.app',
+            'category': isEn ? 'Food Service' : 'Servicios de Comida',
+            'image': 'assets/images/IMG-20260322-WA0081.jpg',
+          },
+          // Financial Services
+          {
+            'title': 'Billetera JJ',
+            'description': isEn
+                ? 'Digital wallet app for ARS/USD transfers, P2P payments, QR deposits and exchange rates.'
+                : 'App de billetera digital para transferencias ARS/USD, pagos P2P, depósitos por QR y cotizaciones.',
+            'technologies': ['Flutter', 'Supabase Auth', isEn ? 'Crypto' : 'Criptografía'],
+            'url': 'https://billetera-2026.web.app',
+            'category': isEn ? 'Finance' : 'Finanzas',
+            'image': 'assets/images/billetera_nuevo.jpg',
+          },
+          {
+            'title': 'AppFirmas FlashCash',
+            'description': isEn
+                ? 'Mobile app wrapper for digital signatures, document scanning, and verification workflows.'
+                : 'App móvil para firmas digitales, escaneo de documentos y flujos de verificación.',
+            'technologies': ['Flutter', 'WebView', isEn ? 'Camera' : 'Cámara'],
+            'url': null,
+            'category': isEn ? 'Finance' : 'Finanzas',
+            'image': 'assets/images/bellacolor_vertical.png',
+          },
+          // Education
           {
             'title': 'Laplace',
             'description': isEn
@@ -29,38 +83,29 @@ class ProyectosPage extends StatelessWidget {
             'technologies': ['Flutter Web', 'Firebase', 'Cloud Functions'],
             'url': 'https://laplace-web.web.app/',
             'category': isEn ? 'Education' : 'Educación',
-            'image': 'assets/images/sodita.jpg',
+            'image': 'assets/images/laplace_nuevo.jpg',
           },
           {
-            'title': 'SODITA',
+            'title': 'Biblio Walsh',
             'description': isEn
-                ? 'Restaurant website with menu, events and contact.'
-                : 'Sitio web del restaurante con menú, eventos y contacto.',
-            'technologies': ['Flutter Web', 'Firebase', 'UI/UX'],
-            'url': 'https://www.sodita.com.ar',
-            'category': isEn ? 'Business' : 'Negocio',
-            'image': 'assets/images/reservas.jpg',
+                ? 'Digital library platform providing access to educational resources and academic materials.'
+                : 'Plataforma de biblioteca digital con acceso a recursos educativos y materiales académicos.',
+            'technologies': [isEn ? 'Digital Platform' : 'Plataforma Digital', isEn ? 'Database' : 'Base de Datos', isEn ? 'Search' : 'Búsqueda'],
+            'url': 'https://bibliowalsh.org/',
+            'category': isEn ? 'Education' : 'Educación',
+            'image': 'assets/images/bibliowalsh.jpg',
           },
           {
-            'title': isEn ? 'SODITA Reservations' : 'Reservas SODITA',
+            'title': isEn ? 'Interactive Alphabet' : 'Alfabeto Interactivo',
             'description': isEn
-                ? 'Online reservation system with real-time availability and booking management.'
-                : 'Sistema de reservas online con disponibilidad en tiempo real y gestión de reservas.',
-            'technologies': ['Flutter Web', 'Firebase', isEn ? 'Realtime DB' : 'BD Tiempo Real'],
-            'url': 'https://reservasodita.web.app/',
-            'category': isEn ? 'Business' : 'Negocio',
-            'image': 'assets/images/lujan.jpg',
+                ? 'Educational app to help children learn to read through alphabet games.'
+                : 'App educativa para ayudar a niños a aprender a leer con juegos del alfabeto.',
+            'technologies': ['Flutter', isEn ? 'Gamification' : 'Gamificación', isEn ? 'Education' : 'Educación'],
+            'url': 'https://ciudaddeletras-97276.web.app',
+            'category': isEn ? 'Kids App' : 'App Infantil',
+            'image': 'assets/images/alfabeto.jpg',
           },
-          {
-            'title': 'Luján Allemand',
-            'description': isEn
-                ? 'Visual artist portfolio showcasing artwork and exhibitions.'
-                : 'Portfolio de artista visual con obras y exposiciones.',
-            'technologies': ['Flutter Web', 'Firebase', isEn ? 'Gallery' : 'Galería'],
-            'url': 'https://lujan-allemand.web.app',
-            'category': 'Portfolio',
-            'image': 'assets/images/laplace.jpg',
-          },
+          // Business & Services
           {
             'title': 'Kraken Reparaciones',
             'description': isEn
@@ -72,14 +117,25 @@ class ProyectosPage extends StatelessWidget {
             'image': 'assets/images/kraken.jpg',
           },
           {
-            'title': 'Biblio Walsh',
+            'title': 'Dietética Centro',
             'description': isEn
-                ? 'Digital library platform providing access to educational resources and academic materials.'
-                : 'Plataforma de biblioteca digital con acceso a recursos educativos y materiales académicos.',
-            'technologies': [isEn ? 'Digital Platform' : 'Plataforma Digital', isEn ? 'Database' : 'Base de Datos', isEn ? 'Search' : 'Búsqueda'],
-            'url': 'https://bibliowalsh.org/',
-            'category': isEn ? 'Education' : 'Educación',
-            'image': 'assets/images/bibliowalsh.jpg',
+                ? 'Web service for health food stores in Argentina.'
+                : 'Servicio web para dietéticas en Argentina.',
+            'technologies': ['Flutter Web', 'Firebase', 'UI/UX'],
+            'url': 'https://dietetica-centro.web.app/',
+            'category': isEn ? 'Business' : 'Negocio',
+            'image': 'assets/images/dietetica.png',
+          },
+          // Portfolio & Creative
+          {
+            'title': 'Luján Allemand',
+            'description': isEn
+                ? 'Visual artist portfolio showcasing artwork and exhibitions.'
+                : 'Portfolio de artista visual con obras y exposiciones.',
+            'technologies': ['Flutter Web', 'Firebase', isEn ? 'Gallery' : 'Galería'],
+            'url': 'https://lujan-allemand.web.app',
+            'category': 'Portfolio',
+            'image': 'assets/images/laplace.jpg',
           },
           {
             'title': 'Emiliana Arias',
@@ -99,26 +155,7 @@ class ProyectosPage extends StatelessWidget {
             'technologies': [isEn ? 'Web Development' : 'Desarrollo Web', isEn ? 'Gallery' : 'Galería', 'Video'],
             'url': 'https://www.puntorojoproductora.com.ar/',
             'category': isEn ? 'Creative' : 'Creativo',
-          },
-          {
-            'title': 'Dietética Centro',
-            'description': isEn
-                ? 'Web service for health food stores in Argentina.'
-                : 'Servicio web para dietéticas en Argentina.',
-            'technologies': ['Flutter Web', 'Firebase', 'UI/UX'],
-            'url': 'https://dietetica-centro.web.app/',
-            'category': isEn ? 'Business' : 'Negocio',
-            'image': 'assets/images/dietetica.png',
-          },
-          {
-            'title': isEn ? 'Interactive Alphabet' : 'Alfabeto Interactivo',
-            'description': isEn
-                ? 'Educational app to help children learn to read through alphabet games.'
-                : 'App educativa para ayudar a niños a aprender a leer con juegos del alfabeto.',
-            'technologies': ['Flutter', isEn ? 'Gamification' : 'Gamificación', isEn ? 'Education' : 'Educación'],
-            'url': 'https://ciudaddeletras-97276.web.app',
-            'category': isEn ? 'Kids App' : 'App Infantil',
-            'image': 'assets/images/alfabeto.jpg',
+            'image': 'assets/images/puntorojoproductora.jpg',
           },
         ];
 
